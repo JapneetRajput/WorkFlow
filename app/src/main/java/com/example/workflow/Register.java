@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 public class Register extends AppCompatActivity {
     EditText Pass,Rpass;
-    AutoCompleteTextView Name, Sname, User;
+    AutoCompleteTextView Name, Sname, User, Email;
     Button register,login;
     DbHandler db;
 
@@ -23,24 +23,26 @@ public class Register extends AppCompatActivity {
         Pass = findViewById(R.id.Password);
         Rpass = findViewById(R.id.RPassword);
         Name = findViewById(R.id.FirstName);
-        Sname = findViewById(R.id.Surname);
+        Sname = findViewById(R.id.surname);
         User = findViewById(R.id.Username);
+        Email = findViewById(R.id.Email);
         register = findViewById(R.id.register);
         login = findViewById(R.id.login);
         db=new DbHandler(this);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username=User.getText().toString();
-                String password=Pass.getText().toString();
-                String rpassword=Rpass.getText().toString();
-                String fname=Name.getText().toString();
-                String sname=Sname.getText().toString();
-                if(username.equals("")||password.equals("")||rpassword.equals("")||fname.equals("")||sname.equals(""))
+                String username=User.getText().toString().trim();
+                String password=Pass.getText().toString().trim();
+                String rpassword=Rpass.getText().toString().trim();
+                String fname=Name.getText().toString().trim();
+                String sname=Sname.getText().toString().trim();
+                String email=Email.getText().toString().trim();
+                if(username.equals("")||password.equals("")||rpassword.equals("")||fname.equals("")||sname.equals("")||email.equals(""))
                     Toast.makeText(Register.this, "* All fields are mandatory", Toast.LENGTH_SHORT).show();
                 else if(password.equals(rpassword)){
                     if(db.checkusername(username)){
-                        db.addEmployee(fname,sname,username,password);
+                        db.addEmployee(fname,sname,username,password,email);
                         Toast.makeText(Register.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                         Intent intent=new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(intent);

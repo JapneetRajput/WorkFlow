@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/WorkFlow-master/app/src/main/res/layout/activity_home.xml" value="0.10714285714285714" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/WorkFlow-master/app/src/main/res/layout/activity_leave.xml" value="0.2" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/WorkFlow-master/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/WorkFlow-master/app/src/main/res/layout/activity_notice.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/WorkFlow-master/app/src/main/res/layout/activity_profile.xml" value="0.176" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/WorkFlow-master/app/src/main/res/layout/activity_register2.xml" value="0.2296875" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_home.xml" value="0.264" />

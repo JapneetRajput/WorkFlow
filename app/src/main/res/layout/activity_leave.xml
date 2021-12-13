@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Leave">
+
+    <TextView
+        android:id="@+id/leave2"
+        android:layout_width="160dp"
+        android:layout_height="156dp"
+        android:gravity="center_horizontal|top"
+        android:paddingTop="10dp"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:text="Create Leave"
+        app:drawableTopCompat="@drawable/imageedit_2_3081268977"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.043" />
+
+    <EditText
+        android:id="@+id/id"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Employee ID"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.288" />
+
+    <EditText
+        android:id="@+id/leaveDescription"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Leave Description"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.759" />
+
+    <EditText
+        android:id="@+id/leaveType"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
+        android:ems="10"
+        android:hint="Select Leave Type"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.642"
+        android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24" />
+
+    <EditText
+        android:id="@+id/fromDate"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+        android:drawableRight="@drawable/ic_baseline_calendar_today_24"
+        android:ems="10"
+        android:hint="Select From Date"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.405" />
+
+    <EditText
+        android:id="@+id/toDate"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+        android:drawableRight="@drawable/ic_baseline_calendar_today_24"
+        android:ems="10"
+        android:hint="Select To Date"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.527" />
+
+    <Button
+        android:id="@+id/apply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apply"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.877" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
