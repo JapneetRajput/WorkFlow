@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -24,12 +23,11 @@
         android:id="@+id/notice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:background="#E15555"
         android:gravity="center_horizontal"
         android:inputType="text"
         android:padding="10dp"
-        android:text="@string/notice_board"
+        android:text="Notice Board"
         android:textColor="#272424"
         android:textStyle="bold"
         android:visibility="visible"
@@ -45,7 +43,6 @@
         android:id="@+id/profile"
         android:layout_width="160dp"
         android:layout_height="156dp"
-
         android:background="#CFBC10"
         android:gravity="center_horizontal|top"
         android:paddingTop="45dp"
@@ -70,7 +67,6 @@
         android:scaleX="1"
         android:scaleY="1"
         android:text="Ongoing Projects"
-
         app:drawableTopCompat="@drawable/imageedit_4_6974292253"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,5 +106,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.088" />
+
+    <Button
+        android:id="@+id/addNotice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add notice"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.795" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

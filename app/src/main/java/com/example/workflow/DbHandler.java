@@ -53,7 +53,6 @@ public class DbHandler extends SQLiteOpenHelper {
             return true;
         else
             return false;
-
     }
 
     public String ret_Fname(String username){

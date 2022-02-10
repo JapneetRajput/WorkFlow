@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "268074290032",
+    "project_id": "workflow-3043a",
+    "storage_bucket": "workflow-3043a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268074290032:android:ac83f9696d719c961d9db5",
+        "android_client_info": {
+          "package_name": "com.example.workflow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "268074290032-3ivsqgjnoii04095f7nsqf7rtrpdviss.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.workflow",
+            "certificate_hash": "d574ca70790e9ead0215e7e8a3ad20ce82891c0d"
+          }
+        },
+        {
+          "client_id": "268074290032-1hdl9epe839mb4mhdo3d0a42ou772la6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfKUTceGgX-9xTQ146zOXHizdig97jOO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "268074290032-1hdl9epe839mb4mhdo3d0a42ou772la6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
