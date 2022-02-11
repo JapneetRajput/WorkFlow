@@ -26,17 +26,17 @@ public class NoticeActivity extends AppCompatActivity {
     ArrayList<NoticeList> list;
     FirebaseFirestore db;
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//    ProgressDialog progressDialog;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
         getSupportActionBar().hide();
 
-//        progressDialog = new ProgressDialog(this);
-//        progressDialog.setCancelable(false);
-//        progressDialog.setMessage("Fetching data");
-//        progressDialog.show();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching data");
+        progressDialog.show();
 
         recyclerView=findViewById(R.id.noticesRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -58,15 +58,15 @@ public class NoticeActivity extends AppCompatActivity {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if(error!=null){
-//                            if(progressDialog.isShowing())
-//                                progressDialog.dismiss();
+                            if(progressDialog.isShowing())
+                                progressDialog.dismiss();
                             Toast.makeText(NoticeActivity.this, "Snapshot error", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             for(DocumentChange dc : value.getDocumentChanges()){
 
-//                                if(progressDialog.isShowing())
-//                                    progressDialog.dismiss();
+                                if(progressDialog.isShowing())
+                                    progressDialog.dismiss();
 
                                 if(dc.getType() == DocumentChange.Type.ADDED){
                                     list.add(dc.getDocument().toObject(NoticeList.class));
