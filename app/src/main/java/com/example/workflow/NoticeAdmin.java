@@ -30,8 +30,8 @@ public class NoticeAdmin extends AppCompatActivity {
     Button addNotice;
     FirebaseUser user;
     FirebaseFirestore db;
-    DatabaseReference noticeCount;
-    Integer count=11;
+    DatabaseReference noticeCounT;
+    Integer count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,22 @@ public class NoticeAdmin extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         String uid=user.getUid();
         db = FirebaseFirestore.getInstance();
-        noticeCount=FirebaseDatabase.getInstance().getReference();
+        noticeCounT=FirebaseDatabase.getInstance().getReference();
+
+        noticeCounT.child("noticeCount").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    count = snapshot.getValue(Integer.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         addNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,31 +68,32 @@ public class NoticeAdmin extends AppCompatActivity {
                 Map<String,Object> notices = new HashMap<>();
                 notices.put("title",title);
                 notices.put("description",desc);
+                notices.put("uid",uid);
 
-//                noticeCount.addValueEventListener(new ValueEventListener() {
+//                noticeCounT.child("noticeCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 //                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        count = snapshot.child("noticeCount").getValue(Integer.class);
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
+//                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                        if(task.isSuccessful()){
+//                            if(task.getResult().exists()){
+//                                DataSnapshot dataSnapshot = task.getResult();
+//                                count = (Integer) dataSnapshot.getValue();
+//                            }
+//                        }
+//                        else{
+//                            Toast.makeText(NoticeAdmin.this, "Failed", Toast.LENGTH_SHORT).show();
+//                        }
 //                    }
 //                });
-
-                noticeCount.child("noticeCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-
-                    }
-                });
                 count++;
                 String Count = count.toString();
 
-                HashMap noticeCounT = new HashMap();
-                noticeCounT.put("noticeCount",count);
-                noticeCount.updateChildren(noticeCounT);
+                Map<String,Object> noticeCount = new HashMap<>();
+                noticeCount.put("noticeCount", count);
+                noticeCounT.updateChildren(noticeCount);
+
+//                HashMap noticeCounT = new HashMap();
+//                noticeCounT.put("noticeCount",count);
+//                noticeCount.updateChildren(noticeCounT);
 
                 db.collection("Notices").document(Count).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
