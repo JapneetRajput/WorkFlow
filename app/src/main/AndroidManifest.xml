@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkFlow">
         <activity
+            android:name=".MyNotices"
+            android:exported="false" />
+        <activity
+            android:name=".Starred"
+            android:exported="false" />
+        <activity
             android:name=".NoticeAdmin"
             android:exported="false" />
         <activity

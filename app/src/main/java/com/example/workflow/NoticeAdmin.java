@@ -14,6 +14,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -25,6 +30,9 @@ public class NoticeAdmin extends AppCompatActivity {
     Button addNotice;
     FirebaseUser user;
     FirebaseFirestore db;
+    DatabaseReference noticeCounT;
+    Integer count;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +44,22 @@ public class NoticeAdmin extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         String uid=user.getUid();
         db = FirebaseFirestore.getInstance();
+        noticeCounT=FirebaseDatabase.getInstance().getReference();
+
+        noticeCounT.child("noticeCount").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    count = snapshot.getValue(Integer.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         addNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,8 +68,34 @@ public class NoticeAdmin extends AppCompatActivity {
                 Map<String,Object> notices = new HashMap<>();
                 notices.put("title",title);
                 notices.put("description",desc);
+                notices.put("uid",uid);
 
-                db.collection("Notices").document(uid).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                noticeCounT.child("noticeCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                        if(task.isSuccessful()){
+//                            if(task.getResult().exists()){
+//                                DataSnapshot dataSnapshot = task.getResult();
+//                                count = (Integer) dataSnapshot.getValue();
+//                            }
+//                        }
+//                        else{
+//                            Toast.makeText(NoticeAdmin.this, "Failed", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+                count++;
+                String Count = count.toString();
+
+                Map<String,Object> noticeCount = new HashMap<>();
+                noticeCount.put("noticeCount", count);
+                noticeCounT.updateChildren(noticeCount);
+
+//                HashMap noticeCounT = new HashMap();
+//                noticeCounT.put("noticeCount",count);
+//                noticeCount.updateChildren(noticeCounT);
+
+                db.collection("Notices").document(Count).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){

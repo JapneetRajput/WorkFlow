@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -24,19 +25,22 @@ public class NoticeActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     AdapterNotices adapterNotices;
     ArrayList<NoticeList> list;
+    BottomNavigationView bottomNavigationView;
     FirebaseFirestore db;
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//    ProgressDialog progressDialog;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
         getSupportActionBar().hide();
+        bottomNavigationView = findViewById(R.id.bottomNavigationViewNotices);
+        bottomNavigationView.setSelectedItemId(R.id.allNotices);
 
-//        progressDialog = new ProgressDialog(this);
-//        progressDialog.setCancelable(false);
-//        progressDialog.setMessage("Fetching data");
-//        progressDialog.show();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching data");
+        progressDialog.show();
 
         recyclerView=findViewById(R.id.noticesRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -49,6 +53,25 @@ public class NoticeActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapterNotices);
 
         EventChangeListener();
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch(item.getItemId()){
+                case R.id.allNotices:
+                    startActivity(new Intent(NoticeActivity.this,NoticeActivity.class));
+                    finish();
+                    break;
+                case R.id.myNotices:
+                    startActivity(new Intent(NoticeActivity.this, MyNotices.class));
+                    finish();
+                    break;
+                case R.id.starred:
+                    startActivity(new Intent(NoticeActivity.this,Starred.class));
+                    finish();
+                    break;
+            }
+
+            return true;
+        });
+
     }
 
     private void EventChangeListener() {
@@ -58,15 +81,15 @@ public class NoticeActivity extends AppCompatActivity {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if(error!=null){
-//                            if(progressDialog.isShowing())
-//                                progressDialog.dismiss();
+                            if(progressDialog.isShowing())
+                                progressDialog.dismiss();
                             Toast.makeText(NoticeActivity.this, "Snapshot error", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             for(DocumentChange dc : value.getDocumentChanges()){
 
-//                                if(progressDialog.isShowing())
-//                                    progressDialog.dismiss();
+                                if(progressDialog.isShowing())
+                                    progressDialog.dismiss();
 
                                 if(dc.getType() == DocumentChange.Type.ADDED){
                                     list.add(dc.getDocument().toObject(NoticeList.class));
@@ -78,5 +101,11 @@ public class NoticeActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(NoticeActivity.this,HomeActivity.class));
+        finish();
     }
 }
