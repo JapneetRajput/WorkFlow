@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class NoticeActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    AdapterNotices.RecyclerViewClickListener listener;
     AdapterNotices adapterNotices;
     ArrayList<NoticeList> list;
     BottomNavigationView bottomNavigationView;
@@ -47,7 +49,8 @@ public class NoticeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<NoticeList>();
-        adapterNotices = new AdapterNotices(this,list);
+        setOnClickListener();
+        adapterNotices = new AdapterNotices(this,list,listener);
         db=FirebaseFirestore.getInstance();
 
         recyclerView.setAdapter(adapterNotices);
@@ -72,6 +75,18 @@ public class NoticeActivity extends AppCompatActivity {
             return true;
         });
 
+    }
+
+    private void setOnClickListener() {
+        listener=new AdapterNotices.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.putExtra("title",list.get(position).getTitle());
+                intent.putExtra("description",list.get(position).getDescription());
+                startActivity(intent);
+            }
+        };
     }
 
     private void EventChangeListener() {
