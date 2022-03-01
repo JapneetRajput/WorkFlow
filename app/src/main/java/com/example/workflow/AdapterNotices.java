@@ -15,12 +15,17 @@ public class AdapterNotices extends RecyclerView.Adapter<AdapterNotices.MyViewHo
 
     Context context;
     ArrayList<NoticeList> list;
+    private static RecyclerViewClickListener listener;
 
+    public AdapterNotices(Context context, ArrayList<NoticeList> list, RecyclerViewClickListener listener) {
+        this.context = context;
+        this.list = list;
+        AdapterNotices.listener =listener;
+    }
     public AdapterNotices(Context context, ArrayList<NoticeList> list) {
         this.context = context;
         this.list = list;
     }
-
 
     @NonNull
     @Override
@@ -41,13 +46,23 @@ public class AdapterNotices extends RecyclerView.Adapter<AdapterNotices.MyViewHo
         return list.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView description, title;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title=itemView.findViewById(R.id.NoticeTitle);
             description=itemView.findViewById(R.id.NoticeDesc);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            listener.onClick(itemView, getAdapterPosition());
+        }
+    }
+
+    public interface RecyclerViewClickListener{
+        void onClick(View v, int position);
     }
 }
