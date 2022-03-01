@@ -3,6 +3,7 @@ package com.example.workflow;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -106,5 +107,10 @@ public class LeaveActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Leave Application submitted.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(LeaveActivity.this,HomeActivity.class));
+        finish();
     }
 }

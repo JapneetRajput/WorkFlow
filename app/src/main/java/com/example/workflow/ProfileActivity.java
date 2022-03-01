@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView e_id,fname,em,username;
+    TextView e_id,fname,em,username,position;
     Button logout;
 
     FirebaseUser user;
@@ -35,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
         em=findViewById(R.id.em);
         username=findViewById(R.id.user);
         logout=findViewById(R.id.logout);
+        position=findViewById(R.id.position);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
@@ -48,9 +49,11 @@ public class ProfileActivity extends AppCompatActivity {
                 String last_name = snapshot.child(uid).child("lastName").getValue(String.class);
                 String Email = snapshot.child(uid).child("email").getValue(String.class);
                 String userName = snapshot.child(uid).child("username").getValue(String.class);
+                String positioN = snapshot.child(uid).child("position").getValue(String.class);
                 fname.setText(first_name + " " + last_name);
                 em.setText(Email);
                 username.setText(userName);
+                position.setText(positioN);
             }
 
             @Override
@@ -68,5 +71,10 @@ public class ProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ProfileActivity.this,HomeActivity.class));
+        finish();
     }
 }
