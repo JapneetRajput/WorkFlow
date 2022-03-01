@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText emailET,passwordET;
     Button login;
-    TextView registerNow;
 
     FirebaseAuth auth;
     @Override
@@ -30,20 +29,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
-        registerNow=findViewById(R.id.registerNow);
         login=findViewById(R.id.login);
         emailET=findViewById(R.id.email);
         passwordET=findViewById(R.id.password);
 
         auth = FirebaseAuth.getInstance();
-
-        registerNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                finish();
-            }
-        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

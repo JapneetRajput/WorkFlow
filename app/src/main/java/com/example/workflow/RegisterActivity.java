@@ -37,7 +37,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     TextInputEditText emailET,firstNameET,lastNameET, passwordET1, passwordET2,usernameET;
     Spinner positionET;
-    TextView loginNow;
     Button registerBTN;
 
     DatabaseReference usersReference;
@@ -58,7 +57,6 @@ public class RegisterActivity extends AppCompatActivity {
         passwordET1=findViewById(R.id.password1);
         passwordET2=findViewById(R.id.password2);
         registerBTN=findViewById(R.id.register);
-        loginNow=findViewById(R.id.loginNow);
         positionET=findViewById(R.id.position);
         Log.i(TAG, "onCreate: 2");
 
@@ -88,13 +86,6 @@ public class RegisterActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         usersReference = FirebaseDatabase.getInstance().getReference().child("Users");
-        loginNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                finish();
-            }
-        });
 
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
