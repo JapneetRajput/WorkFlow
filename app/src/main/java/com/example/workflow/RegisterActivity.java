@@ -1,28 +1,42 @@
 package com.example.workflow;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.zip.Inflater;
+
 public class RegisterActivity extends AppCompatActivity {
 
     TextInputEditText emailET,firstNameET,lastNameET, passwordET1, passwordET2,usernameET;
+    Spinner positionET;
     TextView loginNow;
     Button registerBTN;
 
@@ -33,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate: 1");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         getSupportActionBar().hide();
@@ -44,6 +59,31 @@ public class RegisterActivity extends AppCompatActivity {
         passwordET2=findViewById(R.id.password2);
         registerBTN=findViewById(R.id.register);
         loginNow=findViewById(R.id.loginNow);
+        positionET=findViewById(R.id.position);
+        Log.i(TAG, "onCreate: 2");
+
+        String[] positions=getResources().getStringArray(R.array.levels);
+        ArrayAdapter array=new ArrayAdapter(this,R.layout.dropdown_items,positions){
+            @Override
+            public boolean isEnabled(int position) {
+                return position!=0;
+            }
+
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view= super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    // Set the hint text color gray
+                    tv.setTextColor(Color.GRAY);
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        array.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        positionET.setAdapter(array);
 
         auth = FirebaseAuth.getInstance();
 
@@ -65,6 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String txt_username = usernameET.getText().toString();
                 String txt_password1 = passwordET1.getText().toString();
                 String txt_password2 = passwordET2.getText().toString();
+                String pos=positionET.getSelectedItem().toString();
                 if(txt_lastName.isEmpty()||txt_username.isEmpty()||txt_firstName.isEmpty()||txt_email.isEmpty() || txt_password1.isEmpty() || txt_password2.isEmpty()){
                     Toast.makeText(RegisterActivity.this, "All fields are mandatory!", Toast.LENGTH_SHORT).show();
                 }
@@ -73,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else {
                     if (txt_password1.equals(txt_password2)) {
-                        registerUser(txt_firstName, txt_lastName,txt_username,txt_email,txt_password1);
+                        registerUser(txt_firstName, txt_lastName,txt_username,txt_email,txt_password1,pos);
                     } else {
                         Toast.makeText(RegisterActivity.this, "Passwords don't match", Toast.LENGTH_SHORT).show();
                     }
@@ -82,13 +123,13 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String FirstName, String LastName,String Username,String Email, String password) {
+    private void registerUser(String FirstName, String LastName,String Username,String Email, String password, String position) {
         auth.createUserWithEmailAndPassword(Email,password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                    createDatabaseValues(FirstName,LastName,Username,Email);
+                    createDatabaseValues(FirstName,LastName,Username,Email,position);
                     startActivity(new Intent(RegisterActivity.this,HomeActivity.class));
                     finish();
                 }
@@ -99,10 +140,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void createDatabaseValues(String FirstName, String LastName, String Username, String Email) {
+    private void createDatabaseValues(String FirstName, String LastName, String Username, String Email,String Position) {
         user = auth.getCurrentUser();
-        Integer starCount = 0;
-        dataExtract userr = new dataExtract(FirstName,LastName,Username,Email,starCount);
+        dataExtract userr = new dataExtract(FirstName,LastName,Username,Email,Position);
         usersReference.child(user.getUid()).setValue(userr);
     }
 

@@ -4,19 +4,15 @@ public class dataExtract {
 
     dataExtract(){}
 
-    private String FirstName,LastName,Email,Username;
-    private Integer starCount;
 
-    public Integer getStarCount() {
-        return starCount;
-    }
+    private String FirstName,LastName,Email,Username,Position;
 
-    dataExtract(String FirstName, String LastName, String Username, String Email, Integer starCount){
+    dataExtract(String FirstName,String LastName,String Username,String Email, String Position){
         this.FirstName=FirstName;
         this.LastName=LastName;
         this.Email=Email;
         this.Username=Username;
-        this.starCount= starCount;
+        this.Position=Position;
     }
 
     public String getFirstName() {
@@ -31,7 +27,9 @@ public class dataExtract {
         return Email;
     }
 
-    public String getUsername() {
-        return Username;
+    public String getUsername() { return Username; }
+
+    public String getPosition() {
+        return Position;
     }
 }
