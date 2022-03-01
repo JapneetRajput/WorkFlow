@@ -4,6 +4,7 @@ public class dataExtract {
 
     dataExtract(){}
 
+
     private String FirstName,LastName,Email,Username,Position;
 
     dataExtract(String FirstName,String LastName,String Username,String Email, String Position){

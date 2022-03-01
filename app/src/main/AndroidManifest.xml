@@ -18,9 +18,6 @@
             android:name=".Starred"
             android:exported="false" />
         <activity
-            android:name=".NoticeAdmin"
-            android:exported="false" />
-        <activity
             android:name=".LeaveActivity"
             android:exported="false" />
         <activity

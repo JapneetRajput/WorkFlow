@@ -142,7 +142,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void createDatabaseValues(String FirstName, String LastName, String Username, String Email,String Position) {
         user = auth.getCurrentUser();
-
         dataExtract userr = new dataExtract(FirstName,LastName,Username,Email,Position);
         usersReference.child(user.getUid()).setValue(userr);
     }
