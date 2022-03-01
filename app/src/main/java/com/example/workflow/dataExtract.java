@@ -5,12 +5,18 @@ public class dataExtract {
     dataExtract(){}
 
     private String FirstName,LastName,Email,Username;
+    private Integer starCount;
 
-    dataExtract(String FirstName,String LastName,String Username,String Email){
+    public Integer getStarCount() {
+        return starCount;
+    }
+
+    dataExtract(String FirstName, String LastName, String Username, String Email, Integer starCount){
         this.FirstName=FirstName;
         this.LastName=LastName;
         this.Email=Email;
         this.Username=Username;
+        this.starCount= starCount;
     }
 
     public String getFirstName() {

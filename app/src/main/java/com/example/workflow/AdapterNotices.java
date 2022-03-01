@@ -22,7 +22,10 @@ public class AdapterNotices extends RecyclerView.Adapter<AdapterNotices.MyViewHo
         this.list = list;
         AdapterNotices.listener =listener;
     }
-
+    public AdapterNotices(Context context, ArrayList<NoticeList> list) {
+        this.context = context;
+        this.list = list;
+    }
 
     @NonNull
     @Override

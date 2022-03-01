@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
     TextView textView,profile,leave,noticeBoard;
-    Button addNotice,mainAct;
+    Button mainAct;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +22,6 @@ public class HomeActivity extends AppCompatActivity {
         leave = findViewById(R.id.leave);
         profile = findViewById(R.id.profile);
         noticeBoard = findViewById(R.id.notice);
-        addNotice=findViewById(R.id.addNotice);
         mainAct=findViewById(R.id.mainAct);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,13 +41,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),NoticeActivity.class));
-                finish();
-            }
-        });
-        addNotice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),NoticeAdmin.class));
                 finish();
             }
         });
