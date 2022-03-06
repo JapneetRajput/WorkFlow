@@ -74,7 +74,7 @@ public class NoticeActivity extends AppCompatActivity {
 
         // Progress dialog
         progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
         progressDialog.setMessage("Fetching data");
         progressDialog.show();
 
@@ -134,6 +134,7 @@ public class NoticeActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         String title,desc;
+//                        uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
                         title = Objects.requireNonNull(noticeTitle.getText()).toString();
                         desc = Objects.requireNonNull(noticeDescription.getText()).toString();
                         if(title.isEmpty() || desc.isEmpty()){
@@ -258,7 +259,7 @@ public class NoticeActivity extends AppCompatActivity {
 //                            Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
                             String title = documentSnapshot.getString("title");
                             String desc = documentSnapshot.getString("description");
-                            String uidNotice = documentSnapshot.getString("uidNotice");
+                            String uidNotice = documentSnapshot.getString("uid");
                             String uidFav = documentSnapshot.getString("uidFav");
                             if (uidFav.equals(uid+false)) {
                                 Toast.makeText(NoticeActivity.this, "Favourite: "+false, Toast.LENGTH_SHORT).show();

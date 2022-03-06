@@ -183,21 +183,21 @@
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:layout_constraintVertical_bias="0.8" />-->
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/add"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="315dp"-->
-<!--        android:layout_marginTop="615dp"-->
-<!--        android:layout_marginEnd="40dp"-->
-<!--        android:layout_marginBottom="60dp"-->
-<!--        android:contentDescription="haha"-->
-<!--        android:src="@drawable/ic_add"-->
-<!--        android:visibility="gone"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="315dp"
+        android:layout_marginTop="615dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="60dp"
+        android:contentDescription="haha"
+        android:src="@drawable/ic_add"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <RelativeLayout
@@ -225,6 +225,22 @@
             app:drawableTopCompat="@drawable/profilepng" />
     </RelativeLayout>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieregister"
+        android:layout_width="47dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="320dp"
+        app:layout_constraintBaseline_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:lottie_autoPlay="true"
+        app:lottie_url="https://assets10.lottiefiles.com/dotlotties/dlf10_q0vtqaxf.lottie" />
+
     <!--    <TextView-->
     <!--        android:id="@+id/id"-->
     <!--        android:layout_width="wrap_content"-->
@@ -251,15 +267,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="320dp"
-        android:src="@drawable/educator"
-        app:layout_constraintEnd_toStartOf="@+id/fname"
-        app:layout_constraintHorizontal_bias="0.849"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <ImageView-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="320dp"-->
+<!--        android:src="@drawable/educator"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/fname"-->
+<!--        app:layout_constraintHorizontal_bias="0.849"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <ImageView
         android:layout_width="50dp"
@@ -328,7 +344,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="108dp"
-        android:layout_marginTop="593dp"
+        android:layout_marginTop="323dp"
         android:fontFamily="@font/bai_jamjuree"
         android:text="Position "
         android:textSize="12sp"
@@ -404,37 +420,37 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="323dp"
-        android:fontFamily="@font/bai_jamjuree"
-        android:text="User Type"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
+<!--    <TextView-->
+<!--        android:id="@+id/textView13"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="108dp"-->
+<!--        android:layout_marginTop="323dp"-->
+<!--        android:fontFamily="@font/bai_jamjuree"-->
+<!--        android:text="User Type"-->
+<!--        android:textSize="12sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0" />-->
 
-    <TextView
-        android:id="@+id/userType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="344dp"
-        android:fontFamily="@font/bai_jamjuree"
-        android:text="User Type"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
+<!--    <TextView-->
+<!--        android:id="@+id/userType"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="108dp"-->
+<!--        android:layout_marginTop="344dp"-->
+<!--        android:fontFamily="@font/bai_jamjuree"-->
+<!--        android:text="User Type"-->
+<!--        android:textSize="18sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0" />-->
 
     <TextView
         android:id="@+id/em"
@@ -453,11 +469,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/em"
+        android:id="@+id/position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="108dp"
-        android:layout_marginTop="614dp"
+        android:layout_marginTop="344dp"
         app:layout_constraintVertical_bias="0"
         android:fontFamily="@font/bai_jamjuree"
         android:text="Position"

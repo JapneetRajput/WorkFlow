@@ -79,7 +79,7 @@ public class Starred extends AppCompatActivity {
 
         // Progress dialog
         progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
         progressDialog.setMessage("Fetching data");
         progressDialog.show();
 
@@ -146,34 +146,38 @@ public class Starred extends AppCompatActivity {
 //                });
 //                starCount=1;
 
-                noticeCounT.child("noticeCount").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()) {
-                            count = snapshot.getValue(Integer.class);
-                            String Position = (count+1) + "";
-                            db.collection("Notices").document(Position)
-                                    .get()
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                            Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
-                                            String title = documentSnapshot.getString("title");
-                                            String desc = documentSnapshot.getString("description");
-                                            String uidNotice = documentSnapshot.getString("uid");
-                                            Toast.makeText(Starred.this, "Favourite: "+isFavourite, Toast.LENGTH_SHORT).show();
-                                            new AlertDialog.Builder(Starred.this)
-                                                    .setMessage("Do you want to remove this from favourites?")
-                                                    .setCancelable(true)
-                                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            Map<String, Object> notices = new HashMap<>();
-                                                            notices.put("isFavourite", false);
-                                                            notices.put("description", desc);
-                                                            notices.put("title", title);
-                                                            notices.put("uid",uidNotice);
-                                                            notices.put("count",count);
+//                noticeCounT.child("noticeCount").addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        if(snapshot.exists()) {
+//                            count = snapshot.getValue(Integer.class);
+
+                Integer count = list.get(position).getCount();
+                String Position = (count) + "";
+                db.collection("Notices").document(Position)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                                            Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
+                            String title = documentSnapshot.getString("title");
+                            String desc = documentSnapshot.getString("description");
+                            String uidNotice = documentSnapshot.getString("uid");
+                            String uidFav = documentSnapshot.getString("uidFav");
+//                                            Toast.makeText(Starred.this, "Favourite: "+isFavourite, Toast.LENGTH_SHORT).show();
+                            new AlertDialog.Builder(Starred.this)
+                                .setMessage("Do you want to remove this from favourites?")
+                                .setCancelable(true)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Map<String, Object> notices = new HashMap<>();
+//                                                            notices.put("isFavourite", false);
+                                        notices.put("description", desc);
+                                        notices.put("uidFav",uidNotice+false);
+                                        notices.put("title", title);
+                                        notices.put("uid",uidNotice);
+                                        notices.put("count",count);
 //                                                position++;
 //                                                String counT = count.toString();
 
@@ -181,38 +185,38 @@ public class Starred extends AppCompatActivity {
 //                                                    noticeCount.put("starCount", starCount);
 //                                                    noticeCounT.child("Users").child(uid).updateChildren(noticeCount);
 
-                                                            db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                @Override
-                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                    if (task.isSuccessful()) {
-                                                                        Toast.makeText(Starred.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                                                                        startActivity(new Intent(Starred.this, Starred.class));
-                                                                        finish();
-                                                                    } else {
-                                                                        Toast.makeText(Starred.this, "Update failed", Toast.LENGTH_SHORT).show();
-                                                                    }
-                                                                }
-                                                            });
-                                                        }
-                                                    })
-                                                    .setNegativeButton("No", null)
-                                                    .show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(Starred.this, "Failed to fetch data" + e, Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                                        db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(Starred.this, "Updated successfully", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(Starred.this, Starred.class));
+                                                    finish();
+                                                } else {
+                                                    Toast.makeText(Starred.this, "Update failed", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                                .setNegativeButton("No", null)
+                                .show();
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Starred.this, "Failed to fetch data" + e, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
             }
         };
     }

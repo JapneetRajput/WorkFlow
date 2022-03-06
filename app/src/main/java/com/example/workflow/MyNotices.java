@@ -57,7 +57,7 @@ public class MyNotices extends AppCompatActivity {
 
         // Progress dialog
         progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
         progressDialog.setMessage("Fetching data");
         progressDialog.show();
 
@@ -108,7 +108,8 @@ public class MyNotices extends AppCompatActivity {
                 actionButton.setText("Update notice");
                 heading.setText("Update Notice");
 
-                String Position = (position+1) + "";
+                Integer count = list.get(position).getCount();
+                String Position = (count) + "";
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -120,7 +121,7 @@ public class MyNotices extends AppCompatActivity {
 //                                        Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
                                         String title = noticeTitle.getText().toString();
                                         String description = noticeDescription.getText().toString();
-                                        String uidNotice = documentSnapshot.getString("uidNotices");
+                                        String uidNotice = documentSnapshot.getString("uid");
                                         String uidFav = documentSnapshot.getString("uidFav");
 //                                Integer count = documentSnapshot.get("count",Integer.class);
 
@@ -128,9 +129,9 @@ public class MyNotices extends AppCompatActivity {
 //                                        notices.put("isFavourite", isFavourite);
                                         notices.put("description", description);
                                         notices.put("title", title);
-                                        notices.put("uidNotice",uidNotice);
+                                        notices.put("uid",uidNotice);
                                         notices.put("uidFav",uidFav);
-                                        notices.put("count",Position);
+                                        notices.put("count",count);
 
                                         db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
