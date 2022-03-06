@@ -4,9 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/drawable-v24/ic_baseline_settings_24.xml" value="0.1" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/drawable/bg_profile.xml" value="0.2425" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/drawable/ic_email.xml" value="0.2425" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/drawable/spinner_border.xml" value="0.2425" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/font/alata.xml" value="0.26666666666666666" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/font/bai_jamjuree.xml" value="0.26666666666666666" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_home.xml" value="0.19537037037037036" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_leave.xml" value="0.19537037037037036" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_login.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_main.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_my_notices.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_notice.xml" value="0.1" />
@@ -14,6 +19,7 @@
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_profile.xml" value="0.4" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_register.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_register2.xml" value="0.19537037037037036" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_splash.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_starred.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/dropdown_item.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/dropdown_items.xml" value="0.2359375" />

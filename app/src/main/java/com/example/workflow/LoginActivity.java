@@ -1,12 +1,16 @@
 package com.example.workflow;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.scwang.wave.MultiWaveHeader;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -24,10 +29,31 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
 
     FirebaseAuth auth;
+    Window window;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //STATUS BAR COLOR:
+        if (Build.VERSION.SDK_INT >= 21) {
+            window = this.getWindow();
+            window.setStatusBarColor(this.getResources().getColor(R.color.white));
+        }
+
+        MultiWaveHeader waveFooter;
+        waveFooter = findViewById(R.id.wave_footer);
+//        waveFooter = findViewById(R.id.wave_footer);
+
+        waveFooter.setVelocity(2);
+        waveFooter.setProgress(1);
+        waveFooter.isRunning();
+        waveFooter.setGradientAngle(45);
+        waveFooter.setStartColor(Color.parseColor("#E0F1F8"));
+        waveFooter.setCloseColor(Color.parseColor("#A569BD"));
+
+//        startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
         getSupportActionBar().hide();
         login=findViewById(R.id.login);
         emailET=findViewById(R.id.email);

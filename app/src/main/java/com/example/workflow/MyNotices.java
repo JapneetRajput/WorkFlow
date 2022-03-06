@@ -117,17 +117,19 @@ public class MyNotices extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                     @Override
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                        Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
+//                                        Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
                                         String title = noticeTitle.getText().toString();
                                         String description = noticeDescription.getText().toString();
-                                        String uidNotice = documentSnapshot.getString("uid");
+                                        String uidNotice = documentSnapshot.getString("uidNotices");
+                                        String uidFav = documentSnapshot.getString("uidFav");
 //                                Integer count = documentSnapshot.get("count",Integer.class);
 
                                         Map<String, Object> notices = new HashMap<>();
-                                        notices.put("isFavourite", isFavourite);
+//                                        notices.put("isFavourite", isFavourite);
                                         notices.put("description", description);
                                         notices.put("title", title);
-                                        notices.put("uid",uidNotice);
+                                        notices.put("uidNotice",uidNotice);
+                                        notices.put("uidFav",uidFav);
                                         notices.put("count",Position);
 
                                         db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -191,6 +193,11 @@ public class MyNotices extends AppCompatActivity {
                     }
                 });
 
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(MyNotices.this,HomeActivity.class));
+        finish();
     }
 
 }

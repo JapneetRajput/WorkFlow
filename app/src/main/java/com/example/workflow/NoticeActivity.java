@@ -91,7 +91,7 @@ public class NoticeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
-                    count = snapshot.child("count").getValue(Integer.class);
+//                    count = snapshot.child("count").getValue(Integer.class);
                     pos=snapshot.child("Users").child(uid).child("position").getValue(String.class);
                     if(pos.equals("Admin")){
                         OpenDialog.setVisibility(View.VISIBLE);
@@ -143,10 +143,11 @@ public class NoticeActivity extends AppCompatActivity {
                             Map<String, Object> notices = new HashMap<>();
                             notices.put("title", title);
                             notices.put("description", desc);
+                            notices.put("uidFav", uid+false);
                             notices.put("uid", uid);
                             count++;
                             notices.put("count",count);
-                            notices.put("isFavourite",false);
+//                            notices.put("isFavourite",false);
                             String Count = count.toString();
 
                             Map<String, Object> noticeCount = new HashMap<>();
@@ -174,6 +175,7 @@ public class NoticeActivity extends AppCompatActivity {
         });
 
         list = new ArrayList<NoticeList>();
+//        Toast.makeText(this, count, Toast.LENGTH_SHORT).show();
         setOnClickListener();
         adapterNotices = new AdapterNotices(this,list,listener);
         db=FirebaseFirestore.getInstance();
@@ -195,10 +197,8 @@ public class NoticeActivity extends AppCompatActivity {
                     finish();
                     break;
             }
-
             return true;
         });
-
     }
 
     private void setOnClickListener() {
@@ -235,43 +235,46 @@ public class NoticeActivity extends AppCompatActivity {
 //                });
 //                starCount=1;
 
-                noticeCounT.child("noticeCount").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()) {
-                            count = snapshot.getValue(Integer.class);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+//                noticeCounT.child("noticeCount").addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        if(snapshot.exists()) {
+//                            count = snapshot.getValue(Integer.class);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
                 String Position = (position+1) + "";
+                Toast.makeText(NoticeActivity.this, Position, Toast.LENGTH_SHORT).show();
                 db.collection("Notices").document(Position)
-                        .get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
-                                String title = documentSnapshot.getString("title");
-                                String desc = documentSnapshot.getString("description");
-                                String uidNotice = documentSnapshot.getString("uid");
-                                if (!isFavourite) {
-                                    Toast.makeText(NoticeActivity.this, "Favourite: "+isFavourite, Toast.LENGTH_SHORT).show();
-                                    new AlertDialog.Builder(NoticeActivity.this)
-                                        .setMessage("Do you want to add this to favourites?")
-                                        .setCancelable(true)
-                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                Map<String, Object> notices = new HashMap<>();
-                                                notices.put("isFavourite", true);
-                                                notices.put("description", desc);
-                                                notices.put("title", title);
-                                                notices.put("uid",uidNotice);
-                                                notices.put("count",count);
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                            Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
+                            String title = documentSnapshot.getString("title");
+                            String desc = documentSnapshot.getString("description");
+                            String uidNotice = documentSnapshot.getString("uidNotice");
+                            String uidFav = documentSnapshot.getString("uidFav");
+                            if (uidFav.equals(uid+false)) {
+                                Toast.makeText(NoticeActivity.this, "Favourite: "+false, Toast.LENGTH_SHORT).show();
+                                new AlertDialog.Builder(NoticeActivity.this)
+                                    .setMessage("Do you want to add this to favourites?")
+                                    .setCancelable(true)
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Map<String, Object> notices = new HashMap<>();
+//                                            notices.put("isFavourite", true);
+                                            notices.put("description", desc);
+                                            notices.put("title", title);
+                                            notices.put("uidFav",uidNotice+true);
+                                            notices.put("count",position+1);
+                                            notices.put("uid",uidNotice);
 //                                                position++;
 //                                                String counT = count.toString();
 
@@ -279,34 +282,34 @@ public class NoticeActivity extends AppCompatActivity {
 //                                                    noticeCount.put("starCount", starCount);
 //                                                    noticeCounT.child("Users").child(uid).updateChildren(noticeCount);
 
-                                                db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            Toast.makeText(NoticeActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                                                            startActivity(new Intent(NoticeActivity.this, Starred.class));
-                                                            finish();
-                                                        } else {
-                                                            Toast.makeText(NoticeActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
-                                                        }
+                                            db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(NoticeActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
+                                                        startActivity(new Intent(NoticeActivity.this, Starred.class));
+                                                        finish();
+                                                    } else {
+                                                        Toast.makeText(NoticeActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
                                                     }
-                                                });
-                                            }
-                                        })
-                                        .setNegativeButton("No", null)
-                                        .show();
-                                }
-                                else{
-                                    Toast.makeText(NoticeActivity.this, "Favourite "+ isFavourite, Toast.LENGTH_SHORT).show();
-                                }
+                                                }
+                                            });
+                                        }
+                                    })
+                                    .setNegativeButton("No", null)
+                                    .show();
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(NoticeActivity.this, "Failed to fetch data" + e, Toast.LENGTH_SHORT).show();
+                            else{
+                                Toast.makeText(NoticeActivity.this, "Favourite "+ true, Toast.LENGTH_SHORT).show();
                             }
-                        });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(NoticeActivity.this, "Failed to fetch data" + e, Toast.LENGTH_SHORT).show();
+                        }
+                    });
             }
         };
     }
@@ -314,6 +317,7 @@ public class NoticeActivity extends AppCompatActivity {
     private void EventChangeListener() {
 
         db.collection("Notices")
+                .orderBy("count")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
