@@ -72,7 +72,7 @@ public class MyProjects extends AppCompatActivity {
                     finish();
                     break;
                 case R.id.starredProjects:
-                    startActivity(new Intent(MyProjects.this,Starred.class));
+                    startActivity(new Intent(MyProjects.this,StarredProjects.class));
                     finish();
                     break;
             }
@@ -86,7 +86,7 @@ public class MyProjects extends AppCompatActivity {
 
         list = new ArrayList<ProjectList>();
         setOnClickListener();
-        adapterProjects = new AdapterProjects(this,list);
+        adapterProjects = new AdapterProjects(this,list,listener);
         db=FirebaseFirestore.getInstance();
 
         recyclerView.setAdapter(adapterProjects);
@@ -99,11 +99,11 @@ public class MyProjects extends AppCompatActivity {
             @Override
             public void onClick(View v, int position) {
                 Dialog dialog = new Dialog(MyProjects.this);
-                dialog.setContentView(R.layout.notice_crud);
-                TextView heading = dialog.findViewById(R.id.headingCrud);
-                TextInputEditText ProjectTitle=dialog.findViewById(R.id.noticeTitle);
-                TextInputEditText ProjectDescription=dialog.findViewById(R.id.noticeDescription);
-                Button actionButton=dialog.findViewById(R.id.addNotice);
+                dialog.setContentView(R.layout.project_crud);
+                TextView heading = dialog.findViewById(R.id.projectHeadingCrud);
+                TextInputEditText ProjectTitle=dialog.findViewById(R.id.projectTitle);
+                TextInputEditText ProjectDescription=dialog.findViewById(R.id.projectDescription);
+                Button actionButton=dialog.findViewById(R.id.addProject);
                 actionButton.setText("Update Project");
                 heading.setText("Update Project");
 

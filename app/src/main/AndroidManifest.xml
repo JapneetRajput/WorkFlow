@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkFlow">
         <activity
+            android:name=".StarredProjects"
+            android:exported="false" />
+        <activity
             android:name=".MyProjects"
             android:exported="false" />
         <activity

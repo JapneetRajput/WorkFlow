@@ -50,9 +50,9 @@ import java.util.Objects;
 public class ProjectActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    AdapterNotices.RecyclerViewClickListener listener;
-    AdapterNotices adapterNotices;
-    ArrayList<NoticeList> list;
+    AdapterProjects.RecyclerViewClickListener listener;
+    AdapterProjects adapterProjects;
+    ArrayList<ProjectList> list;
     BottomNavigationView bottomNavigationView;
     FirebaseFirestore db;
     String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
@@ -70,7 +70,7 @@ public class ProjectActivity extends AppCompatActivity {
 //        View v = layoutInflater.inflate(R.layout.notice_crud,layout);
         Objects.requireNonNull(getSupportActionBar()).hide();
         bottomNavigationView = findViewById(R.id.bottomNavigationViewProjects);
-        bottomNavigationView.setSelectedItemId(R.id.allNotices);
+        bottomNavigationView.setSelectedItemId(R.id.allProjects);
 
         // Progress dialog
         progressDialog = new ProgressDialog(this);
@@ -79,7 +79,7 @@ public class ProjectActivity extends AppCompatActivity {
         progressDialog.show();
 
         // Recycler view
-        recyclerView=findViewById(R.id.noticesRecyclerViewProjects);
+        recyclerView=findViewById(R.id.projectsRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -108,11 +108,11 @@ public class ProjectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Dialog dialog = new Dialog(ProjectActivity.this);
-                dialog.setContentView(R.layout.notice_crud);
+                dialog.setContentView(R.layout.project_crud);
 
-                TextInputEditText noticeTitle=dialog.findViewById(R.id.noticeTitle);
-                TextInputEditText noticeDescription=dialog.findViewById(R.id.noticeDescription);
-                Button actionButton=dialog.findViewById(R.id.addNotice);
+                TextInputEditText noticeTitle=dialog.findViewById(R.id.projectTitle);
+                TextInputEditText noticeDescription=dialog.findViewById(R.id.projectDescription);
+                Button actionButton=dialog.findViewById(R.id.addProject);
                 noticeCounT= FirebaseDatabase.getInstance().getReference();
                 noticeCounT.child("projectCount").addValueEventListener(new ValueEventListener() {
                     @Override
@@ -173,26 +173,26 @@ public class ProjectActivity extends AppCompatActivity {
             }
         });
 
-        list = new ArrayList<NoticeList>();
+        list = new ArrayList<ProjectList>();
 //        Toast.makeText(this, count, Toast.LENGTH_SHORT).show();
         setOnClickListener();
-        adapterNotices = new AdapterNotices(this,list,listener);
+        adapterProjects = new AdapterProjects(this,list,listener);
         db=FirebaseFirestore.getInstance();
-        recyclerView.setAdapter(adapterNotices);
+        recyclerView.setAdapter(adapterProjects);
 
         EventChangeListener();
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch(item.getItemId()){
-                case R.id.allNotices:
+                case R.id.allProjects:
                     startActivity(new Intent(ProjectActivity.this,ProjectActivity.class));
                     finish();
                     break;
-                case R.id.myNotices:
-                    startActivity(new Intent(ProjectActivity.this, MyNotices.class));
+                case R.id.myProjects:
+                    startActivity(new Intent(ProjectActivity.this, MyProjects.class));
                     finish();
                     break;
-                case R.id.starred:
-                    startActivity(new Intent(ProjectActivity.this,Starred.class));
+                case R.id.starredProjects:
+                    startActivity(new Intent(ProjectActivity.this,StarredProjects.class));
                     finish();
                     break;
             }
@@ -201,7 +201,7 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     private void setOnClickListener() {
-        listener=new AdapterNotices.RecyclerViewClickListener() {
+        listener=new AdapterProjects.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position){
 //                Dialog dialog = new Dialog(NoticeActivity.this);
@@ -249,7 +249,7 @@ public class ProjectActivity extends AppCompatActivity {
 //                });
                 String Position = (position+1) + "";
                 Toast.makeText(ProjectActivity.this, Position, Toast.LENGTH_SHORT).show();
-                db.collection("Notices").document(Position)
+                db.collection("Projects").document(Position)
                         .get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
@@ -283,12 +283,12 @@ public class ProjectActivity extends AppCompatActivity {
 //                                                    noticeCount.put("starCount", starCount);
 //                                                    noticeCounT.child("Users").child(uid).updateChildren(noticeCount);
 
-                                                    db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    db.collection("Project").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
                                                         public void onComplete(@NonNull Task<Void> task) {
                                                             if (task.isSuccessful()) {
                                                                 Toast.makeText(ProjectActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                                                                startActivity(new Intent(ProjectActivity.this, Starred.class));
+                                                                startActivity(new Intent(ProjectActivity.this, StarredProjects.class));
                                                                 finish();
                                                             } else {
                                                                 Toast.makeText(ProjectActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
@@ -317,7 +317,7 @@ public class ProjectActivity extends AppCompatActivity {
 
     private void EventChangeListener() {
 
-        db.collection("Notices")
+        db.collection("Projects")
                 .orderBy("count")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -334,9 +334,9 @@ public class ProjectActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
 
                                 if(dc.getType() == DocumentChange.Type.ADDED){
-                                    list.add(dc.getDocument().toObject(NoticeList.class));
+                                    list.add(dc.getDocument().toObject(ProjectList.class));
                                 }
-                                adapterNotices.notifyDataSetChanged();
+                                adapterProjects.notifyDataSetChanged();
                             }
                         }
                     }

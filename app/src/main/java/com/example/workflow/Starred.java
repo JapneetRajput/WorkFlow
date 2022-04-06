@@ -96,7 +96,7 @@ public class Starred extends AppCompatActivity {
 
         EventChangeListener();
 
-        noticeCounT.child("count").addValueEventListener(new ValueEventListener() {
+        noticeCounT.child("noticeCount").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {

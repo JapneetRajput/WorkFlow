@@ -20,7 +20,7 @@
             android:layout_gravity="center_horizontal">
 
             <TextView
-                android:id="@+id/NoticeTitle"
+                android:id="@+id/ProjectTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
@@ -35,7 +35,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/NoticeDepartment"
+                android:id="@+id/ProjectDepartment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/NoticeDesc"
+                android:id="@+id/ProjectDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
