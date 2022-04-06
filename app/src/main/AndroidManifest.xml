@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkFlow">
         <activity
+            android:name=".LeaveRequests"
+            android:exported="false" />
+        <activity
+            android:name=".LeaveA"
+            android:exported="false" />
+        <activity
             android:name=".MyProjects"
             android:exported="false" />
         <activity

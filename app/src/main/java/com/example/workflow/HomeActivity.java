@@ -1,5 +1,6 @@
 package com.example.workflow;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,10 +13,20 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.Lottie;
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeActivity extends AppCompatActivity {
     TextView projectsTV,profileTV,leaveTV,noticeBoardTV,employeeListTV;
     LottieAnimationView profile,leave,noticeBoard,projects;
+    DatabaseReference dbRoot= FirebaseDatabase.getInstance().getReference();
+    String uid= FirebaseAuth.getInstance().getCurrentUser().getUid();
+    String department,pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +41,25 @@ public class HomeActivity extends AppCompatActivity {
         noticeBoardTV = findViewById(R.id.notice_text);
         projectsTV = findViewById(R.id.ongoing_text);
         employeeListTV = findViewById(R.id.employeeList);
+        dbRoot.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+//                    count = snapshot.child("count").getValue(Integer.class);
+                    pos=snapshot.child("Users").child(uid).child("position").getValue(String.class);
+                    department=snapshot.child("Users").child(uid).child("department").getValue(String.class);
+//                    department=snapshot.child("Users").child(uid).child("department").getValue(String.class);
+//                    if(pos.equals("Admin")){
+//                        OpenDialog.setVisibility(View.VISIBLE);
+//                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         employeeListTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +91,9 @@ public class HomeActivity extends AppCompatActivity {
         leave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(pos.equals("Admin"))
+                    startActivity(new Intent(getApplicationContext(),LeaveA.class));
+                else
                 startActivity(new Intent(getApplicationContext(),LeaveActivity.class));
                 finish();
             }
@@ -68,7 +101,16 @@ public class HomeActivity extends AppCompatActivity {
         leaveTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),LeaveActivity.class));
+                Intent intent = new Intent(getApplicationContext(),LeaveA.class);
+                intent.putExtra("pos",pos);
+                intent.putExtra("dep",department);
+                Intent intent1 = new Intent(getApplicationContext(),LeaveActivity.class);
+                intent1.putExtra("pos",pos);
+                intent1.putExtra("dep",department);
+                if(pos.equals("Admin"))
+                    startActivity(intent);
+                else
+                    startActivity(intent1);
                 finish();
             }
         });
