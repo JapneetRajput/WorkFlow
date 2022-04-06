@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">WorkFlow</string>
+    <string name="hint_resource">Choose Level</string>
+    <string-array name="levels">
+        <item>Choose Level</item>
+        <item>Admin</item>
+        <item>HR</item>
+        <item>Employee</item>
+    </string-array>
+    <string-array name="lType">
+        <item>Select Leave Type</item>
+        <item>Paid</item>
+        <item>Unpaid</item>
+        <item>Sick</item>
+    </string-array>
 </resources>

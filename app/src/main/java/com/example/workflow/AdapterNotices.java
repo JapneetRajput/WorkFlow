@@ -39,6 +39,7 @@ public class AdapterNotices extends RecyclerView.Adapter<AdapterNotices.MyViewHo
         NoticeList noticeList = list.get(position);
         holder.title.setText(noticeList.getTitle());
         holder.description.setText(noticeList.getDescription());
+        holder.department.setText(noticeList.getDepartment());
     }
 
     @Override
@@ -48,11 +49,12 @@ public class AdapterNotices extends RecyclerView.Adapter<AdapterNotices.MyViewHo
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView description, title;
+        TextView description, title,department;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title=itemView.findViewById(R.id.NoticeTitle);
             description=itemView.findViewById(R.id.NoticeDesc);
+            department=itemView.findViewById(R.id.NoticeDepartment);
             itemView.setOnClickListener(this);
         }
 

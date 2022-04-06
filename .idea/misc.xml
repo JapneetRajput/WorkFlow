@@ -3,21 +3,42 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/drawable-mdpi/bg_home.xml" value="0.2425" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/drawable-mdpi/bg_shape.xml" value="0.2425" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/drawable-v24/ic_baseline_settings_24.xml" value="0.1" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/drawable/bg_profile.xml" value="0.2425" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/drawable/ic_email.xml" value="0.2425" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/drawable/spinner_border.xml" value="0.2425" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/font/alata.xml" value="0.26666666666666666" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/font/bai_jamjuree.xml" value="0.26666666666666666" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_employee_list.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_home.xml" value="0.19537037037037036" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_leave.xml" value="0.19537037037037036" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_login.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_main.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_my_notices.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_my_projects.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_notice.xml" value="0.1" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_notice_admin.xml" value="0.23645833333333333" />
-        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_profile.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_profile.xml" value="0.4" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_project.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_register.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_register2.xml" value="0.19537037037037036" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_splash.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/activity_starred.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/dropdown_item.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/dropdown_items.xml" value="0.2359375" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/employee_card.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/notice_crud.xml" value="0.176" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/notices_card.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/layout/project_card.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/menu/menu.xml" value="0.1" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/menu/menuNotice.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/menu/menuNotices.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/menu/menu_notice.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/menu/menu_project.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1085" />
+        <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2425" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow2/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow2/app/src/main/res/layout/activity_home.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow2/app/src/main/res/layout/activity_leave.xml" value="0.23645833333333333" />
@@ -28,6 +49,20 @@
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow2/app/src/main/res/layout/activity_profile.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow2/app/src/main/res/layout/activity_register.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Arjun/AndroidStudioProjects/WorkFlow2/app/src/main/res/layout/notices_card.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/Yashvi/AndroidStudioProjects/workfloww/app/src/main/res/drawable/spinner_border.xml" value="0.159" />
+        <entry key="..\:/Users/Yashvi/AndroidStudioProjects/workfloww/app/src/main/res/layout/activity_login.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Yashvi/AndroidStudioProjects/workfloww/app/src/main/res/layout/activity_notice.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Yashvi/AndroidStudioProjects/workfloww/app/src/main/res/layout/activity_profile.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Yashvi/AndroidStudioProjects/workfloww/app/src/main/res/layout/activity_register.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Yashvi/AndroidStudioProjects/workfloww/app/src/main/res/layout/activity_register2.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Yashvi/Desktop/New folder/WorkFlow/app/src/main/res/layout/activity_leave.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Yashvi/Desktop/New folder/WorkFlow/app/src/main/res/layout/activity_my_notices.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Yashvi/Desktop/New folder/WorkFlow/app/src/main/res/layout/activity_notice.xml" value="0.10666666666666667" />
+        <entry key="..\:/Users/Yashvi/Desktop/New folder/WorkFlow/app/src/main/res/layout/activity_profile.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Yashvi/Desktop/New folder/WorkFlow/app/src/main/res/layout/activity_register.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Yashvi/Desktop/New folder/WorkFlow/app/src/main/res/layout/dropdown_items.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Yashvi/Desktop/New folder/WorkFlow/app/src/main/res/layout/notice_crud.xml" value="0.22" />
+        <entry key="..\:/Users/Yashvi/Desktop/New folder/WorkFlow/app/src/main/res/layout/notices_card.xml" value="0.3333333333333333" />
       </map>
     </option>
   </component>

@@ -10,20 +10,48 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.airbnb.lottie.Lottie;
+import com.airbnb.lottie.LottieAnimationView;
+
 public class HomeActivity extends AppCompatActivity {
-    TextView textView,profile,leave,noticeBoard;
-    Button mainAct;
+    TextView projectsTV,profileTV,leaveTV,noticeBoardTV,employeeListTV;
+    LottieAnimationView profile,leave,noticeBoard,projects;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         getSupportActionBar().hide();
-        textView = findViewById(R.id.textView3);
         leave = findViewById(R.id.leave);
         profile = findViewById(R.id.profile);
         noticeBoard = findViewById(R.id.notice);
-        mainAct=findViewById(R.id.mainAct);
+        projects = findViewById(R.id.projects);
+        leaveTV = findViewById(R.id.leave_text);
+        profileTV = findViewById(R.id.profile_text);
+        noticeBoardTV = findViewById(R.id.notice_text);
+        projectsTV = findViewById(R.id.ongoing_text);
+        employeeListTV = findViewById(R.id.employeeList);
+        employeeListTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),EmployeeList.class));
+                finish();
+            }
+        });
         profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                finish();
+            }
+        });
+        projects.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ProjectActivity.class));
+                finish();
+            }
+        });
+        profileTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
@@ -37,6 +65,13 @@ public class HomeActivity extends AppCompatActivity {
                 finish();
             }
         });
+        leaveTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),LeaveActivity.class));
+                finish();
+            }
+        });
         noticeBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,10 +79,17 @@ public class HomeActivity extends AppCompatActivity {
                 finish();
             }
         });
-        mainAct.setOnClickListener(new View.OnClickListener() {
+        noticeBoardTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                startActivity(new Intent(getApplicationContext(),NoticeActivity.class));
+                finish();
+            }
+        });
+        projectsTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ProjectActivity.class));
                 finish();
             }
         });

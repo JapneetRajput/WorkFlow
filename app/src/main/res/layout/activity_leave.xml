@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".LeaveActivity">
 
+    <EditText
+        android:id="@+id/department"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Department"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.809" />
+
     <TextView
         android:id="@+id/leave2"
         android:layout_width="160dp"
@@ -28,8 +42,8 @@
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Enter Employee ID"
         android:inputType="textPersonName"
+        android:editable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -46,26 +60,30 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.759" />
+        app:layout_constraintVertical_bias="0.708" />
 
-    <EditText
-        android:id="@+id/leaveType"
-        android:layout_width="290dp"
+    <Spinner
+        android:id="@+id/leavetype"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
-        android:ems="10"
-        android:hint="Select Leave Type"
-        android:inputType="textPersonName"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="-350dp"
+        android:layout_weight="1"
+        android:background="@drawable/spinner_border"
+        android:dropDownSelector="@drawable/ic_baseline_arrow_drop_down_24"
+        android:layoutMode="clipBounds"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.642"
-        android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24" />
+        app:layout_constraintVertical_bias="0.4"
+        tools:listitem="@layout/dropdown_items" />
 
     <EditText
         android:id="@+id/fromDate"
@@ -73,15 +91,15 @@
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
         android:drawableRight="@drawable/ic_baseline_calendar_today_24"
+        android:editable="false"
         android:ems="10"
         android:hint="Select From Date"
-        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.405" />
+        app:layout_constraintVertical_bias="0.392" />
 
     <EditText
         android:id="@+id/toDate"
@@ -89,15 +107,14 @@
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
         android:drawableRight="@drawable/ic_baseline_calendar_today_24"
+        android:editable="false"
         android:ems="10"
         android:hint="Select To Date"
-        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.527" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/apply"
@@ -109,5 +126,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.877" />
+        app:layout_constraintVertical_bias="0.92" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

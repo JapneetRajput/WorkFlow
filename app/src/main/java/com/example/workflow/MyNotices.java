@@ -57,7 +57,7 @@ public class MyNotices extends AppCompatActivity {
 
         // Progress dialog
         progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
         progressDialog.setMessage("Fetching data");
         progressDialog.show();
 
@@ -76,7 +76,6 @@ public class MyNotices extends AppCompatActivity {
                     finish();
                     break;
             }
-
             return true;
         });
 
@@ -108,28 +107,34 @@ public class MyNotices extends AppCompatActivity {
                 actionButton.setText("Update notice");
                 heading.setText("Update Notice");
 
-                String Position = (position+1) + "";
+                Integer count = list.get(position).getCount();
+                String Position = (count) + "";
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         db.collection("Notices").document(Position)
-                                .get()
-                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                        Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
-                                        String title = noticeTitle.getText().toString();
-                                        String description = noticeDescription.getText().toString();
-                                        String uidNotice = documentSnapshot.getString("uid");
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                                        Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
+                                    String title = noticeTitle.getText().toString();
+                                    String description = noticeDescription.getText().toString();
+                                    String uidNotice = documentSnapshot.getString("uid");
+                                    String uidDepartment = documentSnapshot.getString("department");
+                                    String uidFav = documentSnapshot.getString("uidFav");
 //                                Integer count = documentSnapshot.get("count",Integer.class);
 
-                                        Map<String, Object> notices = new HashMap<>();
-                                        notices.put("isFavourite", isFavourite);
-                                        notices.put("description", description);
-                                        notices.put("title", title);
-                                        notices.put("uid",uidNotice);
-                                        notices.put("count",Position);
+                                    Map<String, Object> notices = new HashMap<>();
+//                                        notices.put("isFavourite", isFavourite);
+                                    notices.put("description", description);
+                                    notices.put("title", title);
+                                    notices.put("uid", uidNotice);
+                                    notices.put("uidFav", uidFav);
+                                    notices.put("count", count);
+                                    notices.put("department", uidDepartment);
 
+                                    if (uidNotice.equals(uid)){
                                         db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
@@ -143,13 +148,17 @@ public class MyNotices extends AppCompatActivity {
                                             }
                                         });
                                     }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(MyNotices.this, "Failed to fetch data" + e, Toast.LENGTH_SHORT).show();
+                                    else{
+                                        Toast.makeText(MyNotices.this, "You can only edit notices you created", Toast.LENGTH_SHORT).show();
                                     }
-                                });
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(MyNotices.this, "Failed to fetch data" + e, Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
                     }
                 });
@@ -167,7 +176,7 @@ public class MyNotices extends AppCompatActivity {
     private void EventChangeListener() {
 
         db.collection("Notices")
-                .whereEqualTo("uid",uid)
+                .whereEqualTo("department","Full Stack Developer")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -191,6 +200,11 @@ public class MyNotices extends AppCompatActivity {
                     }
                 });
 
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(MyNotices.this,HomeActivity.class));
+        finish();
     }
 
 }
