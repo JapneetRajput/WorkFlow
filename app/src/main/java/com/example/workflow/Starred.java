@@ -162,6 +162,7 @@ public class Starred extends AppCompatActivity {
 //                                            Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
                             String title = documentSnapshot.getString("title");
                             String desc = documentSnapshot.getString("description");
+                            String department = documentSnapshot.getString("department");
                             String uidNotice = documentSnapshot.getString("uid");
                             String uidFav = documentSnapshot.getString("uidFav");
 //                                            Toast.makeText(Starred.this, "Favourite: "+isFavourite, Toast.LENGTH_SHORT).show();
@@ -172,18 +173,19 @@ public class Starred extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         Map<String, Object> notices = new HashMap<>();
-//                                                            notices.put("isFavourite", false);
+//                                          notices.put("isFavourite", false);
                                         notices.put("description", desc);
                                         notices.put("uidFav",uidNotice+false);
                                         notices.put("title", title);
                                         notices.put("uid",uidNotice);
                                         notices.put("count",count);
-//                                                position++;
-//                                                String counT = count.toString();
-
-//                                                    Map<String, Object> noticeCount = new HashMap<>();
-//                                                    noticeCount.put("starCount", starCount);
-//                                                    noticeCounT.child("Users").child(uid).updateChildren(noticeCount);
+                                        notices.put("department",department);
+//                                        position++;
+//                                        String counT = count.toString();
+//
+//                                            Map<String, Object> noticeCount = new HashMap<>();
+//                                            noticeCount.put("starCount", starCount);
+//                                            noticeCounT.child("Users").child(uid).updateChildren(noticeCount);
 
                                         db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override

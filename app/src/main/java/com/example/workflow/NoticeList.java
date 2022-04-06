@@ -2,23 +2,31 @@ package com.example.workflow;
 
 public class NoticeList {
 
-    String title,description;
+    String title;
+    String description;
+
+
+    String department;
 
 
     Integer count;
 
     public NoticeList(){}
 
-    public NoticeList(String title, String description,Integer count) {
+    public NoticeList(String title, String description,Integer count,String department) {
         this.title = title;
         this.description = description;
         this.count=count;
+        this.department=department;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public String getDepartment() {
+        return department;
+    }
     public void setTitle(String title) {
         this.title = title;
     }

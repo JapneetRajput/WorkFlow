@@ -114,45 +114,47 @@ public class MyNotices extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         db.collection("Notices").document(Position)
-                                .get()
-                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
 //                                        Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
-                                        String title = noticeTitle.getText().toString();
-                                        String description = noticeDescription.getText().toString();
-                                        String uidNotice = documentSnapshot.getString("uid");
-                                        String uidFav = documentSnapshot.getString("uidFav");
+                                    String title = noticeTitle.getText().toString();
+                                    String description = noticeDescription.getText().toString();
+                                    String uidNotice = documentSnapshot.getString("uid");
+                                    String uidDepartment = documentSnapshot.getString("uid");
+                                    String uidFav = documentSnapshot.getString("uidFav");
 //                                Integer count = documentSnapshot.get("count",Integer.class);
 
-                                        Map<String, Object> notices = new HashMap<>();
+                                    Map<String, Object> notices = new HashMap<>();
 //                                        notices.put("isFavourite", isFavourite);
-                                        notices.put("description", description);
-                                        notices.put("title", title);
-                                        notices.put("uid",uidNotice);
-                                        notices.put("uidFav",uidFav);
-                                        notices.put("count",count);
+                                    notices.put("description", description);
+                                    notices.put("title", title);
+                                    notices.put("uid",uidNotice);
+                                    notices.put("uidFav",uidFav);
+                                    notices.put("count",count);
+                                    notices.put("department",uidDepartment);
 
-                                        db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(MyNotices.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(MyNotices.this, NoticeActivity.class));
-                                                    finish();
-                                                } else {
-                                                    Toast.makeText(MyNotices.this, "Update failed", Toast.LENGTH_SHORT).show();
-                                                }
+                                    db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(MyNotices.this, "Updated successfully", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(MyNotices.this, NoticeActivity.class));
+                                                finish();
+                                            } else {
+                                                Toast.makeText(MyNotices.this, "Update failed", Toast.LENGTH_SHORT).show();
                                             }
-                                        });
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(MyNotices.this, "Failed to fetch data" + e, Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                        }
+                                    });
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(MyNotices.this, "Failed to fetch data" + e, Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
                     }
                 });
@@ -170,7 +172,7 @@ public class MyNotices extends AppCompatActivity {
     private void EventChangeListener() {
 
         db.collection("Notices")
-                .whereEqualTo("uid",uid)
+                .whereEqualTo("department","Full Stack Developer")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

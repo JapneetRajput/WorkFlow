@@ -91,7 +91,6 @@ public class NoticeActivity extends AppCompatActivity {
                 if(snapshot.exists()) {
 //                    count = snapshot.child("count").getValue(Integer.class);
                     pos=snapshot.child("Users").child(uid).child("position").getValue(String.class);
-                    department=snapshot.child("Users").child(uid).child("department").getValue(String.class);
                     if(pos.equals("Admin")){
                         OpenDialog.setVisibility(View.VISIBLE);
                     }
@@ -119,6 +118,7 @@ public class NoticeActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()) {
                             count = snapshot.getValue(Integer.class);
+                            department=snapshot.child("Users").child(uid).child("department").getValue(String.class);
                         }
                     }
 
@@ -144,6 +144,7 @@ public class NoticeActivity extends AppCompatActivity {
                             notices.put("description", desc);
                             notices.put("uidFav", uid+false);
                             notices.put("uid", uid);
+                            notices.put("department", department);
                             count++;
                             notices.put("count",count);
 //                            notices.put("isFavourite",false);
@@ -256,6 +257,7 @@ public class NoticeActivity extends AppCompatActivity {
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
 //                            Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
                             String title = documentSnapshot.getString("title");
+                            String department = documentSnapshot.getString("department");
                             String desc = documentSnapshot.getString("description");
                             String uidNotice = documentSnapshot.getString("uid");
                             String uidFav = documentSnapshot.getString("uidFav");
@@ -274,6 +276,7 @@ public class NoticeActivity extends AppCompatActivity {
                                             notices.put("uidFav",uidNotice+true);
                                             notices.put("count",position+1);
                                             notices.put("uid",uidNotice);
+                                            notices.put("department",department);
 //                                                position++;
 //                                                String counT = count.toString();
 
