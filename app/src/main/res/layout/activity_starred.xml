@@ -23,7 +23,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu">
+        app:menu="@menu/menu_notice">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

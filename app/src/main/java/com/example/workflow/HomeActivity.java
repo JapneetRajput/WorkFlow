@@ -14,7 +14,7 @@ import com.airbnb.lottie.Lottie;
 import com.airbnb.lottie.LottieAnimationView;
 
 public class HomeActivity extends AppCompatActivity {
-    TextView projectsTV,profileTV,leaveTV,noticeBoardTV;
+    TextView projectsTV,profileTV,leaveTV,noticeBoardTV,employeeListTV;
     LottieAnimationView profile,leave,noticeBoard,projects;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,25 @@ public class HomeActivity extends AppCompatActivity {
         profileTV = findViewById(R.id.profile_text);
         noticeBoardTV = findViewById(R.id.notice_text);
         projectsTV = findViewById(R.id.ongoing_text);
+        employeeListTV = findViewById(R.id.employeeList);
+        employeeListTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),EmployeeList.class));
+                finish();
+            }
+        });
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                finish();
+            }
+        });
+        projects.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ProjectActivity.class));
                 finish();
             }
         });
@@ -68,6 +83,13 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),NoticeActivity.class));
+                finish();
+            }
+        });
+        projectsTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ProjectActivity.class));
                 finish();
             }
         });

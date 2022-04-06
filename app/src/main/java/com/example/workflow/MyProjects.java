@@ -37,12 +37,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class MyNotices extends AppCompatActivity {
+public class MyProjects extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    AdapterNotices.RecyclerViewClickListener listener;
-    AdapterNotices adapterNotices;
-    ArrayList<NoticeList> list;
+    AdapterProjects.RecyclerViewClickListener listener;
+    AdapterProjects adapterProjects;
+    ArrayList<ProjectList> list;
     FirebaseFirestore db;
     String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
     ProgressDialog progressDialog;
@@ -50,10 +50,10 @@ public class MyNotices extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_notices);
+        setContentView(R.layout.activity_my_projects);
         getSupportActionBar().hide();
-        bottomNavigationView = findViewById(R.id.bottomNavigationViewMyNotices);
-        bottomNavigationView.setSelectedItemId(R.id.myNotices);
+        bottomNavigationView = findViewById(R.id.bottomNavigationViewMyProjects);
+        bottomNavigationView.setSelectedItemId(R.id.myProjects);
 
         // Progress dialog
         progressDialog = new ProgressDialog(this);
@@ -63,16 +63,16 @@ public class MyNotices extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch(item.getItemId()){
-                case R.id.allNotices:
-                    startActivity(new Intent(MyNotices.this,NoticeActivity.class));
+                case R.id.allProjects:
+                    startActivity(new Intent(MyProjects.this,ProjectActivity.class));
                     finish();
                     break;
-                case R.id.myNotices:
-                    startActivity(new Intent(MyNotices.this, MyNotices.class));
+                case R.id.myProjects:
+                    startActivity(new Intent(MyProjects.this, MyProjects.class));
                     finish();
                     break;
-                case R.id.starred:
-                    startActivity(new Intent(MyNotices.this,Starred.class));
+                case R.id.starredProjects:
+                    startActivity(new Intent(MyProjects.this,Starred.class));
                     finish();
                     break;
             }
@@ -80,85 +80,85 @@ public class MyNotices extends AppCompatActivity {
         });
 
         // Recycler view
-        recyclerView=findViewById(R.id.noticesRecyclerView);
+        recyclerView=findViewById(R.id.projectsRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        list = new ArrayList<NoticeList>();
+        list = new ArrayList<ProjectList>();
         setOnClickListener();
-        adapterNotices = new AdapterNotices(this,list,listener);
+        adapterProjects = new AdapterProjects(this,list);
         db=FirebaseFirestore.getInstance();
 
-        recyclerView.setAdapter(adapterNotices);
+        recyclerView.setAdapter(adapterProjects);
 
         EventChangeListener();
     }
 
     private void setOnClickListener() {
-        listener=new AdapterNotices.RecyclerViewClickListener() {
+        listener=new AdapterProjects.RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
-                Dialog dialog = new Dialog(MyNotices.this);
+                Dialog dialog = new Dialog(MyProjects.this);
                 dialog.setContentView(R.layout.notice_crud);
                 TextView heading = dialog.findViewById(R.id.headingCrud);
-                TextInputEditText noticeTitle=dialog.findViewById(R.id.noticeTitle);
-                TextInputEditText noticeDescription=dialog.findViewById(R.id.noticeDescription);
+                TextInputEditText ProjectTitle=dialog.findViewById(R.id.noticeTitle);
+                TextInputEditText ProjectDescription=dialog.findViewById(R.id.noticeDescription);
                 Button actionButton=dialog.findViewById(R.id.addNotice);
-                actionButton.setText("Update notice");
-                heading.setText("Update Notice");
+                actionButton.setText("Update Project");
+                heading.setText("Update Project");
 
                 Integer count = list.get(position).getCount();
                 String Position = (count) + "";
                 actionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        db.collection("Notices").document(Position)
-                            .get()
-                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        db.collection("Projects").document(Position)
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
 //                                        Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
-                                    String title = noticeTitle.getText().toString();
-                                    String description = noticeDescription.getText().toString();
-                                    String uidNotice = documentSnapshot.getString("uid");
-                                    String uidDepartment = documentSnapshot.getString("department");
-                                    String uidFav = documentSnapshot.getString("uidFav");
+                                        String title = ProjectTitle.getText().toString();
+                                        String description = ProjectDescription.getText().toString();
+                                        String uidProject = documentSnapshot.getString("uid");
+                                        String uidDepartment = documentSnapshot.getString("department");
+                                        String uidFav = documentSnapshot.getString("uidFav");
 //                                Integer count = documentSnapshot.get("count",Integer.class);
 
-                                    Map<String, Object> notices = new HashMap<>();
-//                                        notices.put("isFavourite", isFavourite);
-                                    notices.put("description", description);
-                                    notices.put("title", title);
-                                    notices.put("uid", uidNotice);
-                                    notices.put("uidFav", uidFav);
-                                    notices.put("count", count);
-                                    notices.put("department", uidDepartment);
+                                        Map<String, Object> Projects = new HashMap<>();
+//                                        Projects.put("isFavourite", isFavourite);
+                                        Projects.put("description", description);
+                                        Projects.put("title", title);
+                                        Projects.put("uid", uidProject);
+                                        Projects.put("uidFav", uidFav);
+                                        Projects.put("count", count);
+                                        Projects.put("department", uidDepartment);
 
-                                    if (uidNotice.equals(uid)){
-                                        db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(MyNotices.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(MyNotices.this, NoticeActivity.class));
-                                                    finish();
-                                                } else {
-                                                    Toast.makeText(MyNotices.this, "Update failed", Toast.LENGTH_SHORT).show();
+                                        if (uidProject.equals(uid)){
+                                            db.collection("Projects").document(Position).set(Projects).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(MyProjects.this, "Updated successfully", Toast.LENGTH_SHORT).show();
+                                                        startActivity(new Intent(MyProjects.this, ProjectActivity.class));
+                                                        finish();
+                                                    } else {
+                                                        Toast.makeText(MyProjects.this, "Update failed", Toast.LENGTH_SHORT).show();
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
+                                        }
+                                        else{
+                                            Toast.makeText(MyProjects.this, "You can only edit Projects you created", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                    else{
-                                        Toast.makeText(MyNotices.this, "You can only edit notices you created", Toast.LENGTH_SHORT).show();
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(MyProjects.this, "Failed to fetch data" + e, Toast.LENGTH_SHORT).show();
                                     }
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(MyNotices.this, "Failed to fetch data" + e, Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                });
 
                     }
                 });
@@ -175,7 +175,7 @@ public class MyNotices extends AppCompatActivity {
 
     private void EventChangeListener() {
 
-        db.collection("Notices")
+        db.collection("Projects")
                 .whereEqualTo("department","Full Stack Developer")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -183,7 +183,7 @@ public class MyNotices extends AppCompatActivity {
                         if(error!=null){
                             if(progressDialog.isShowing())
                                 progressDialog.dismiss();
-                            Toast.makeText(MyNotices.this, "Snapshot error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyProjects.this, "Snapshot error", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             for(DocumentChange dc : value.getDocumentChanges()){
@@ -192,9 +192,9 @@ public class MyNotices extends AppCompatActivity {
                                     progressDialog.dismiss();
 
                                 if(dc.getType() == DocumentChange.Type.ADDED){
-                                    list.add(dc.getDocument().toObject(NoticeList.class));
+                                    list.add(dc.getDocument().toObject(ProjectList.class));
                                 }
-                                adapterNotices.notifyDataSetChanged();
+                                adapterProjects.notifyDataSetChanged();
                             }
                         }
                     }
@@ -203,7 +203,7 @@ public class MyNotices extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(MyNotices.this,HomeActivity.class));
+        startActivity(new Intent(MyProjects.this,HomeActivity.class));
         finish();
     }
 

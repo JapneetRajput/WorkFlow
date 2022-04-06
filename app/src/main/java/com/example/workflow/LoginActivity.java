@@ -24,7 +24,6 @@ import com.scwang.wave.MultiWaveHeader;
 
 public class LoginActivity extends AppCompatActivity {
 
-
     TextInputEditText emailET,passwordET;
     Button login;
 

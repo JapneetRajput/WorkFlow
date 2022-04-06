@@ -11,18 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AdapterNotices extends RecyclerView.Adapter<AdapterNotices.MyViewHolder> {
+public class AdapterProjects extends RecyclerView.Adapter<AdapterProjects.MyViewHolder> {
 
     Context context;
-    ArrayList<NoticeList> list;
+    ArrayList<ProjectList> list;
     private static RecyclerViewClickListener listener;
 
-    public AdapterNotices(Context context, ArrayList<NoticeList> list, RecyclerViewClickListener listener) {
+    public AdapterProjects(Context context, ArrayList<ProjectList> list, RecyclerViewClickListener listener) {
         this.context = context;
         this.list = list;
-        AdapterNotices.listener =listener;
+        AdapterProjects.listener =listener;
     }
-    public AdapterNotices(Context context, ArrayList<NoticeList> list) {
+    public AdapterProjects(Context context, ArrayList<ProjectList> list) {
         this.context = context;
         this.list = list;
     }
@@ -36,10 +36,10 @@ public class AdapterNotices extends RecyclerView.Adapter<AdapterNotices.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        NoticeList noticeList = list.get(position);
-        holder.title.setText(noticeList.getTitle());
-        holder.description.setText(noticeList.getDescription());
-        holder.department.setText(noticeList.getDepartment());
+        ProjectList ProjectList = list.get(position);
+        holder.title.setText(ProjectList.getTitle());
+        holder.description.setText(ProjectList.getDescription());
+        holder.department.setText(ProjectList.getDepartment());
     }
 
     @Override

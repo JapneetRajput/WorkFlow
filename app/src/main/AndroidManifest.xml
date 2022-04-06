@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkFlow">
         <activity
+            android:name=".MyProjects"
+            android:exported="false" />
+        <activity
+            android:name=".ProjectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EmployeeList"
+            android:exported="false" />
+        <activity
             android:name=".Splash"
             android:exported="true">
             <intent-filter>

@@ -47,14 +47,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class NoticeActivity extends AppCompatActivity {
+public class ProjectActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     AdapterNotices.RecyclerViewClickListener listener;
     AdapterNotices adapterNotices;
     ArrayList<NoticeList> list;
     BottomNavigationView bottomNavigationView;
-    FirebaseFirestore db=FirebaseFirestore.getInstance();
+    FirebaseFirestore db;
     String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
     ProgressDialog progressDialog;
     DatabaseReference noticeCounT=FirebaseDatabase.getInstance().getReference();
@@ -65,11 +65,11 @@ public class NoticeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notice);
+        setContentView(R.layout.activity_project);
 //        LayoutInflater layoutInflater = getLayoutInflater();
 //        View v = layoutInflater.inflate(R.layout.notice_crud,layout);
         Objects.requireNonNull(getSupportActionBar()).hide();
-        bottomNavigationView = findViewById(R.id.bottomNavigationViewNotices);
+        bottomNavigationView = findViewById(R.id.bottomNavigationViewProjects);
         bottomNavigationView.setSelectedItemId(R.id.allNotices);
 
         // Progress dialog
@@ -79,11 +79,11 @@ public class NoticeActivity extends AppCompatActivity {
         progressDialog.show();
 
         // Recycler view
-        recyclerView=findViewById(R.id.noticesRecyclerView);
+        recyclerView=findViewById(R.id.noticesRecyclerViewProjects);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        OpenDialog=findViewById(R.id.openDialogButton);
+        OpenDialog=findViewById(R.id.openDialogButtonProject);
 
         noticeCounT.addValueEventListener(new ValueEventListener() {
             @Override
@@ -107,14 +107,14 @@ public class NoticeActivity extends AppCompatActivity {
         OpenDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog = new Dialog(NoticeActivity.this);
+                Dialog dialog = new Dialog(ProjectActivity.this);
                 dialog.setContentView(R.layout.notice_crud);
 
                 TextInputEditText noticeTitle=dialog.findViewById(R.id.noticeTitle);
                 TextInputEditText noticeDescription=dialog.findViewById(R.id.noticeDescription);
                 Button actionButton=dialog.findViewById(R.id.addNotice);
                 noticeCounT= FirebaseDatabase.getInstance().getReference();
-                noticeCounT.child("noticeCount").addValueEventListener(new ValueEventListener() {
+                noticeCounT.child("projectCount").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()) {
@@ -136,7 +136,7 @@ public class NoticeActivity extends AppCompatActivity {
                         title = Objects.requireNonNull(noticeTitle.getText()).toString();
                         desc = Objects.requireNonNull(noticeDescription.getText()).toString();
                         if(title.isEmpty() || desc.isEmpty()){
-                            Toast.makeText(NoticeActivity.this, "All fields are mandatory!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProjectActivity.this, "All fields are mandatory!", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             Map<String, Object> notices = new HashMap<>();
@@ -151,18 +151,18 @@ public class NoticeActivity extends AppCompatActivity {
                             String Count = count.toString();
 
                             Map<String, Object> noticeCount = new HashMap<>();
-                            noticeCount.put("noticeCount", count);
+                            noticeCount.put("projectCount", count);
                             noticeCounT.updateChildren(noticeCount);
 
-                            db.collection("Notices").document(Count).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            db.collection("Projects").document(Count).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(NoticeActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(NoticeActivity.this, NoticeActivity.class));
+                                        Toast.makeText(ProjectActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(ProjectActivity.this, ProjectActivity.class));
                                         finish();
                                     } else {
-                                        Toast.makeText(NoticeActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ProjectActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -177,21 +177,22 @@ public class NoticeActivity extends AppCompatActivity {
 //        Toast.makeText(this, count, Toast.LENGTH_SHORT).show();
         setOnClickListener();
         adapterNotices = new AdapterNotices(this,list,listener);
+        db=FirebaseFirestore.getInstance();
         recyclerView.setAdapter(adapterNotices);
 
         EventChangeListener();
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch(item.getItemId()){
                 case R.id.allNotices:
-                    startActivity(new Intent(NoticeActivity.this,NoticeActivity.class));
+                    startActivity(new Intent(ProjectActivity.this,ProjectActivity.class));
                     finish();
                     break;
                 case R.id.myNotices:
-                    startActivity(new Intent(NoticeActivity.this, MyNotices.class));
+                    startActivity(new Intent(ProjectActivity.this, MyNotices.class));
                     finish();
                     break;
                 case R.id.starred:
-                    startActivity(new Intent(NoticeActivity.this,Starred.class));
+                    startActivity(new Intent(ProjectActivity.this,Starred.class));
                     finish();
                     break;
             }
@@ -247,34 +248,34 @@ public class NoticeActivity extends AppCompatActivity {
 //                    }
 //                });
                 String Position = (position+1) + "";
-                Toast.makeText(NoticeActivity.this, Position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProjectActivity.this, Position, Toast.LENGTH_SHORT).show();
                 db.collection("Notices").document(Position)
-                    .get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
 //                            Boolean isFavourite = documentSnapshot.getBoolean("isFavourite");
-                            String title = documentSnapshot.getString("title");
-                            String department = documentSnapshot.getString("department");
-                            String desc = documentSnapshot.getString("description");
-                            String uidNotice = documentSnapshot.getString("uid");
-                            String uidFav = documentSnapshot.getString("uidFav");
-                            if (uidFav.equals(uid+false)) {
-                                Toast.makeText(NoticeActivity.this, "Favourite: "+false, Toast.LENGTH_SHORT).show();
-                                new AlertDialog.Builder(NoticeActivity.this)
-                                    .setMessage("Do you want to add this to favourites?")
-                                    .setCancelable(true)
-                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Map<String, Object> notices = new HashMap<>();
+                                String title = documentSnapshot.getString("title");
+                                String department = documentSnapshot.getString("department");
+                                String desc = documentSnapshot.getString("description");
+                                String uidNotice = documentSnapshot.getString("uid");
+                                String uidFav = documentSnapshot.getString("uidFav");
+                                if (uidFav.equals(uid+false)) {
+                                    Toast.makeText(ProjectActivity.this, "Favourite: "+false, Toast.LENGTH_SHORT).show();
+                                    new AlertDialog.Builder(ProjectActivity.this)
+                                            .setMessage("Do you want to add this to favourites?")
+                                            .setCancelable(true)
+                                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    Map<String, Object> notices = new HashMap<>();
 //                                            notices.put("isFavourite", true);
-                                            notices.put("description", desc);
-                                            notices.put("title", title);
-                                            notices.put("uidFav",uidNotice+true);
-                                            notices.put("count",position+1);
-                                            notices.put("uid",uidNotice);
-                                            notices.put("department",department);
+                                                    notices.put("description", desc);
+                                                    notices.put("title", title);
+                                                    notices.put("uidFav",uidNotice+true);
+                                                    notices.put("count",position+1);
+                                                    notices.put("uid",uidNotice);
+                                                    notices.put("department",department);
 //                                                position++;
 //                                                String counT = count.toString();
 
@@ -282,34 +283,34 @@ public class NoticeActivity extends AppCompatActivity {
 //                                                    noticeCount.put("starCount", starCount);
 //                                                    noticeCounT.child("Users").child(uid).updateChildren(noticeCount);
 
-                                            db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        Toast.makeText(NoticeActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
-                                                        startActivity(new Intent(NoticeActivity.this, Starred.class));
-                                                        finish();
-                                                    } else {
-                                                        Toast.makeText(NoticeActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
-                                                    }
+                                                    db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                Toast.makeText(ProjectActivity.this, "Updated successfully", Toast.LENGTH_SHORT).show();
+                                                                startActivity(new Intent(ProjectActivity.this, Starred.class));
+                                                                finish();
+                                                            } else {
+                                                                Toast.makeText(ProjectActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
                                                 }
-                                            });
-                                        }
-                                    })
-                                    .setNegativeButton("No", null)
-                                    .show();
+                                            })
+                                            .setNegativeButton("No", null)
+                                            .show();
+                                }
+                                else{
+                                    Toast.makeText(ProjectActivity.this, "Favourite "+ true, Toast.LENGTH_SHORT).show();
+                                }
                             }
-                            else{
-                                Toast.makeText(NoticeActivity.this, "Favourite "+ true, Toast.LENGTH_SHORT).show();
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(ProjectActivity.this, "Failed to fetch data" + e, Toast.LENGTH_SHORT).show();
                             }
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(NoticeActivity.this, "Failed to fetch data" + e, Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        });
             }
         };
     }
@@ -324,7 +325,7 @@ public class NoticeActivity extends AppCompatActivity {
                         if(error!=null){
                             if(progressDialog.isShowing())
                                 progressDialog.dismiss();
-                            Toast.makeText(NoticeActivity.this, "Snapshot error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProjectActivity.this, "Snapshot error", Toast.LENGTH_SHORT).show();
                         }
                         else{
                             for(DocumentChange dc : value.getDocumentChanges()){
@@ -344,7 +345,7 @@ public class NoticeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(NoticeActivity.this,HomeActivity.class));
+        startActivity(new Intent(ProjectActivity.this,HomeActivity.class));
         finish();
     }
 }
