@@ -15,6 +15,12 @@
             android:name=".StarredProjects"
             android:exported="false" />
         <activity
+            android:name=".LeaveRequests"
+            android:exported="false" />
+        <activity
+            android:name=".LeaveA"
+            android:exported="false" />
+        <activity
             android:name=".MyProjects"
             android:exported="false" />
         <activity

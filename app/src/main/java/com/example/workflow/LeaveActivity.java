@@ -42,6 +42,7 @@ public class LeaveActivity extends AppCompatActivity {
     TextView tv;
     Button apply;
     FirebaseFirestore db;
+    String pos,dept;
     DatabaseReference db1= FirebaseDatabase.getInstance().getReference();
     FirebaseUser user;
     int c=0,d=0;
@@ -51,6 +52,9 @@ public class LeaveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave);
+        Bundle b=getIntent().getExtras();
+        pos=b.getString("pos");
+        dept=b.getString("dep");
         id=findViewById(R.id.id);
         apply=findViewById(R.id.apply);
         fromDate=findViewById(R.id.fromDate);
@@ -62,6 +66,7 @@ public class LeaveActivity extends AppCompatActivity {
         user= FirebaseAuth.getInstance().getCurrentUser();
         String email= user.getEmail();
         id.setText(email);
+        dep.setText(dept);
         db=FirebaseFirestore.getInstance();
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
@@ -171,7 +176,6 @@ public class LeaveActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String l_type=leaveType.getSelectedItem().toString();
                 String des = leaveDescription.getText().toString();
-                String department=dep.getText().toString();
 
 
                 Map<String, Object> leave = new HashMap<>();
@@ -180,7 +184,7 @@ public class LeaveActivity extends AppCompatActivity {
                 leave.put("from_date", from_date[0]);
                 leave.put("Type", l_type);
                 leave.put("description", des);
-                leave.put("department", department);
+                leave.put("department", dept);
                 count++;
                 String Count = count.toString();
 
