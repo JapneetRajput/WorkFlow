@@ -153,6 +153,7 @@ public class LeaveActivity extends AppCompatActivity {
                 datePickerDialog1.show();
             }
         });
+        db1= FirebaseDatabase.getInstance().getReference();
         db1.child("LeaveCount").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -173,6 +174,8 @@ public class LeaveActivity extends AppCompatActivity {
                 String l_type=leaveType.getSelectedItem().toString();
                 String des = leaveDescription.getText().toString();
                 String department=dep.getText().toString();
+
+
                 Map<String, Object> leave = new HashMap<>();
                 leave.put("email", email);
                 leave.put("to_date", to_date[0]);
