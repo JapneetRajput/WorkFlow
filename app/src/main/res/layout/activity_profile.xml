@@ -315,7 +315,7 @@
         android:layout_marginStart="108dp"
         android:layout_marginTop="413dp"
         android:fontFamily="@font/bai_jamjuree"
-        android:text="Username"
+        android:text="Department"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -411,14 +411,14 @@
         android:layout_marginStart="108dp"
         android:layout_marginTop="434dp"
         android:fontFamily="@font/bai_jamjuree"
-        android:text="Username"
+        android:text="Department"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintVertical_bias="0"/>
 
 <!--    <TextView-->
 <!--        android:id="@+id/textView13"-->

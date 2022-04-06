@@ -7,16 +7,16 @@ public class dataExtract {
     private String FirstName;
     private String LastName;
     private String Email;
-    private String Username;
+    private String Department;
 
     private String Position;
 
 
-    dataExtract(String FirstName, String LastName, String Username, String Email, String Position){
+    dataExtract(String FirstName, String LastName, String Department, String Email, String Position){
         this.FirstName=FirstName;
         this.LastName=LastName;
         this.Email=Email;
-        this.Username=Username;
+        this.Department=Department;
         this.Position=Position;
     }
 
@@ -35,7 +35,7 @@ public class dataExtract {
         return Email;
     }
 
-    public String getUsername() {
-        return Username;
+    public String getDepartment() {
+        return Department;
     }
 }

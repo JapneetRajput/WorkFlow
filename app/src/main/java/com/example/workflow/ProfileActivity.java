@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView e_id,fname,em,username,position;
+    TextView e_id,fname,em,department,position;
     Button logout;
     FloatingActionButton addEmployee;
     FirebaseUser user;
@@ -35,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
         e_id=findViewById(R.id.id);
         fname=findViewById(R.id.fname);
         em=findViewById(R.id.em);
-        username=findViewById(R.id.user);
+        department=findViewById(R.id.user);
         logout=findViewById(R.id.logout);
         position=findViewById(R.id.position);
         addEmployee=findViewById(R.id.add);
@@ -51,14 +51,14 @@ public class ProfileActivity extends AppCompatActivity {
                 String first_name = snapshot.child(uid).child("firstName").getValue(String.class);
                 String last_name = snapshot.child(uid).child("lastName").getValue(String.class);
                 String Email = snapshot.child(uid).child("email").getValue(String.class);
-                String userName = snapshot.child(uid).child("username").getValue(String.class);
+                String departMent = snapshot.child(uid).child("department").getValue(String.class);
                 pos = snapshot.child(uid).child("position").getValue(String.class);
                 if(pos.equals("Admin")){
                     addEmployee.setVisibility(View.VISIBLE);
                 }
                 fname.setText(first_name + " " + last_name);
                 em.setText(Email);
-                username.setText(userName);
+                department.setText(departMent);
                 position.setText(pos);
             }
 

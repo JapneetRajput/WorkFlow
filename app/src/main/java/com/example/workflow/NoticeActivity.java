@@ -60,7 +60,7 @@ public class NoticeActivity extends AppCompatActivity {
     DatabaseReference noticeCounT=FirebaseDatabase.getInstance().getReference();
     FloatingActionButton OpenDialog;
     Integer count;
-    String pos;
+    String pos,department;
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,14 +85,13 @@ public class NoticeActivity extends AppCompatActivity {
 
         OpenDialog=findViewById(R.id.openDialogButton);
 
-
-
         noticeCounT.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
 //                    count = snapshot.child("count").getValue(Integer.class);
                     pos=snapshot.child("Users").child(uid).child("position").getValue(String.class);
+                    department=snapshot.child("Users").child(uid).child("department").getValue(String.class);
                     if(pos.equals("Admin")){
                         OpenDialog.setVisibility(View.VISIBLE);
                     }
@@ -104,7 +103,6 @@ public class NoticeActivity extends AppCompatActivity {
 
             }
         });
-//
         OpenDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
