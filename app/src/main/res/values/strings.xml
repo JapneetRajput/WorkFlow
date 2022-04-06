@@ -7,4 +7,10 @@
         <item>HR</item>
         <item>Employee</item>
     </string-array>
+    <string-array name="lType">
+        <item>Select Leave Type</item>
+        <item>Paid</item>
+        <item>Unpaid</item>
+        <item>Sick</item>
+    </string-array>
 </resources>
