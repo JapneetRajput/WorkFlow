@@ -37,9 +37,9 @@ public class AdapterLeave extends RecyclerView.Adapter<AdapterLeave.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         LeaveList leaveList = list.get(position);
-        holder.type.setText(LeaveList.getType());
-        holder.description.setText(LeaveList.getDescription());
-        holder.department.setText(LeaveList.getDepartment());
+        holder.type.setText(leaveList.getType());
+        holder.description.setText(leaveList.getDescription());
+        holder.department.setText(leaveList.getDepartment());
     }
 
     @Override
