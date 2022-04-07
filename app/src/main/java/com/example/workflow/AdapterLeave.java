@@ -37,9 +37,10 @@ public class AdapterLeave extends RecyclerView.Adapter<AdapterLeave.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         LeaveList leaveList = list.get(position);
-        holder.type.setText(LeaveList.getType());
-        holder.description.setText(LeaveList.getDescription());
-        holder.department.setText(LeaveList.getDepartment());
+        holder.type.setText(leaveList.getType());
+        holder.email.setText(leaveList.getEmail());
+        holder.to_date.setText(leaveList.getTo_date());
+        holder.from_date.setText(leaveList.getFrom_date());
     }
 
     @Override
@@ -49,12 +50,13 @@ public class AdapterLeave extends RecyclerView.Adapter<AdapterLeave.MyViewHolder
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView description, type,department;
+        TextView email, type,to_date,from_date;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             type=itemView.findViewById(R.id.leavetype);
-            description=itemView.findViewById(R.id.Email);
-            department=itemView.findViewById(R.id.NoticeDepartment);
+            email=itemView.findViewById(R.id.Email);
+            to_date=itemView.findViewById(R.id.fromDate);
+            from_date=itemView.findViewById(R.id.toDate);
             itemView.setOnClickListener(this);
         }
 

@@ -24,9 +24,9 @@ import java.util.Objects;
 public class LeaveRequests extends AppCompatActivity {
     String pos,dep;
     RecyclerView recyclerView;
-    AdapterProjects.RecyclerViewClickListener listener;
-    AdapterProjects adapterProjects;
-    ArrayList<ProjectList> list;
+    AdapterLeave.RecyclerViewClickListener listener;
+    AdapterLeave adapterLeave;
+    ArrayList<LeaveList> list;
     FirebaseFirestore db;
     String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
     ProgressDialog progressDialog;
@@ -51,11 +51,11 @@ public class LeaveRequests extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        list = new ArrayList<ProjectList>();
+        list = new ArrayList<LeaveList>();
 //        Toast.makeText(this, count, Toast.LENGTH_SHORT).show();
-        adapterProjects = new AdapterProjects(this,list,listener);
+        adapterLeave = new AdapterLeave(this,list,listener);
         db=FirebaseFirestore.getInstance();
-        recyclerView.setAdapter(adapterProjects);
+        recyclerView.setAdapter(adapterLeave);
 
 
         EventChangeListener();
@@ -79,9 +79,9 @@ public class LeaveRequests extends AppCompatActivity {
                                     progressDialog.dismiss();
 
                                 if (dc.getType() == DocumentChange.Type.ADDED) {
-                                    list.add(dc.getDocument().toObject(ProjectList.class));
+                                    list.add(dc.getDocument().toObject(LeaveList.class));
                                 }
-                                adapterProjects.notifyDataSetChanged();
+                                adapterLeave.notifyDataSetChanged();
                             }
                         }
                     }

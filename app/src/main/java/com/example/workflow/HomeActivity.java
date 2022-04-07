@@ -99,10 +99,10 @@ public class HomeActivity extends AppCompatActivity {
         leave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pos.equals("Admin"))
-                    startActivity(new Intent(getApplicationContext(),LeaveA.class));
-                else
-                startActivity(new Intent(getApplicationContext(),LeaveActivity.class));
+                Intent intent = new Intent(HomeActivity.this,LeaveA.class);
+                intent.putExtra("pos",pos);
+                intent.putExtra("dep",department);
+                startActivity(intent);
                 finish();
             }
         });
@@ -112,13 +112,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),LeaveA.class);
                 intent.putExtra("pos",pos);
                 intent.putExtra("dep",department);
-                Intent intent1 = new Intent(getApplicationContext(),LeaveActivity.class);
-                intent1.putExtra("pos",pos);
-                intent1.putExtra("dep",department);
-                if(pos.equals("Admin"))
-                    startActivity(intent);
-                else
-                    startActivity(intent1);
+                startActivity(intent);
                 finish();
             }
         });
