@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HomeActivity extends AppCompatActivity {
-    TextView projectsTV,profileTV,leaveTV,noticeBoardTV,employeeListTV;
+    TextView projectsTV,profileTV,leaveTV,noticeBoardTV,employeeListTV,attendanceTV;
     LottieAnimationView profile,leave,noticeBoard,projects;
     DatabaseReference dbRoot= FirebaseDatabase.getInstance().getReference();
     String uid= FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -41,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
         noticeBoardTV = findViewById(R.id.notice_text);
         projectsTV = findViewById(R.id.ongoing_text);
         employeeListTV = findViewById(R.id.employeeList);
+        attendanceTV = findViewById(R.id.attendance);
         dbRoot.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -58,6 +59,13 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+        attendanceTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Attendance.class));
+                finish();
             }
         });
         employeeListTV.setOnClickListener(new View.OnClickListener() {
