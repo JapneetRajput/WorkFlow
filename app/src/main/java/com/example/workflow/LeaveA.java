@@ -39,9 +39,9 @@ public class LeaveA extends AppCompatActivity {
                     pos=snapshot.child("Users").child(uid).child("position").getValue(String.class);
                     department=snapshot.child("Users").child(uid).child("department").getValue(String.class);
 //                    department=snapshot.child("Users").child(uid).child("department").getValue(String.class);
-//                    if(pos.equals("Admin")){
-//                        OpenDialog.setVisibility(View.VISIBLE);
-//                    }
+                    if(pos.equals("Admin")){
+                        tv2.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
@@ -50,9 +50,6 @@ public class LeaveA extends AppCompatActivity {
 
             }
         });
-        if(pos.equals("Admin")){
-            tv2.setVisibility(View.VISIBLE);
-        }
         tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
