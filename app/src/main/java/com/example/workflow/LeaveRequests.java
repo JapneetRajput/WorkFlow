@@ -57,7 +57,6 @@ public class LeaveRequests extends AppCompatActivity {
         db=FirebaseFirestore.getInstance();
         recyclerView.setAdapter(adapterProjects);
 
-
         EventChangeListener();
 
     }

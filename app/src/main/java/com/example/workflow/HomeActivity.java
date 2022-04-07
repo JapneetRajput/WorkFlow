@@ -53,6 +53,12 @@ public class HomeActivity extends AppCompatActivity {
 //                    if(pos.equals("Admin")){
 //                        OpenDialog.setVisibility(View.VISIBLE);
 //                    }
+                    if(pos.equals("Admin")){
+                        attendanceTV.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        attendanceTV.setVisibility(View.GONE);
+                    }
                 }
             }
 
