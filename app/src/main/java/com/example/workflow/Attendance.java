@@ -34,7 +34,7 @@ public class Attendance extends AppCompatActivity {
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         String officeSSID=wifiInfo.getSSID();
-        String officeIP="192.168.20.36";
+        String officeIP="172.20.10.11";
         String employeeSSID = wifiInfo.getSSID();
         String employeeIP =""+Formatter.formatIpAddress(wifiManager.getConnectionInfo().getIpAddress());
 

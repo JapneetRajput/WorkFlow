@@ -2,15 +2,22 @@ package com.example.workflow;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,12 +25,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class LeaveRequests extends AppCompatActivity {
@@ -73,6 +83,7 @@ public class LeaveRequests extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         list = new ArrayList<LeaveList>();
+        setOnClickListener();
 //        Toast.makeText(this, count, Toast.LENGTH_SHORT).show();
         adapterLeave = new AdapterLeave(this,list,listener);
         db=FirebaseFirestore.getInstance();
@@ -105,4 +116,73 @@ public class LeaveRequests extends AppCompatActivity {
                     }
                 });
     }
+    private void setOnClickListener() {
+        listener=new AdapterLeave.RecyclerViewClickListener() {
+            @Override
+            public void onClick(View v, int position){
+//                Dialog dialog = new Dialog(NoticeActivity.this);
+//                dialog.setContentView(R.layout.notice_crud);
+//                TextView heading = dialog.findViewById(R.id.headingCrud);
+//                TextInputEditText noticeTitle=dialog.findViewById(R.id.noticeTitle);
+//                TextInputEditText noticeDescription=dialog.findViewById(R.id.noticeDescription);
+//                Button actionButton=dialog.findViewById(R.id.addNotice);
+//                actionButton.setText("Update notice");
+//                heading.setText(list.get(position).getTitle());
+//
+//                dialog.show();
+//                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+//                intent.putExtra("title",list.get(position).getTitle());
+//                intent.putExtra("description",list.get(position).getDescription());
+//                startActivity(intent);
+////                layout.addView(v);
+//                noticeCounT.child("Users").child(uid).child("starCount").addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        if(snapshot.exists()) {
+//                            starCount = snapshot.getValue(Integer.class);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//                starCount=1;
+
+//                noticeCounT.child("noticeCount").addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        if(snapshot.exists()) {
+//                            count = snapshot.getValue(Integer.class);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//                String Position = (position+1) + "";
+//                Toast.makeText(LeaveRequests.this, Position, Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(LeaveRequests.this)
+                        .setMessage("Do you wish to approve this request?")
+                        .setCancelable(true)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(), "Leave Approved!", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(), "Leave Denied!", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .show();
+            }
+        };
+    }
+
 }
