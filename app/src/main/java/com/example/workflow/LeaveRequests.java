@@ -1,5 +1,6 @@
 package com.example.workflow;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,11 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,11 +27,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class LeaveRequests extends AppCompatActivity {
-    String pos,dep;
+    String pos,department;
     RecyclerView recyclerView;
-    AdapterProjects.RecyclerViewClickListener listener;
-    AdapterProjects adapterProjects;
-    ArrayList<ProjectList> list;
+    AdapterLeave.RecyclerViewClickListener listener;
+    AdapterLeave adapterLeave;
+    ArrayList<LeaveList> list;
     FirebaseFirestore db;
     String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
     ProgressDialog progressDialog;
@@ -36,10 +41,25 @@ public class LeaveRequests extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave_requests);
+//        DatabaseReference dbRoot= FirebaseDatabase.getInstance().getReference();
+//        String uid= FirebaseAuth.getInstance().getCurrentUser().getUid();
         getSupportActionBar().hide();
-        Bundle b=getIntent().getExtras();
-        pos=b.getString("pos");
-        dep=b.getString("dep");
+        noticeCounT.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+//                    count = snapshot.child("count").getValue(Integer.class);
+                    pos=snapshot.child("Users").child(uid).child("position").getValue(String.class);
+                    department=snapshot.child("Users").child(uid).child("department").getValue(String.class);
+//                    department=snapshot.child("Users").child(uid).child("department").getValue(String.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         // Progress dialog
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(true);
@@ -47,15 +67,15 @@ public class LeaveRequests extends AppCompatActivity {
         progressDialog.show();
 
         // Recycler view
-        recyclerView=findViewById(R.id.projectsRecyclerView);
+        recyclerView=findViewById(R.id.recyclerViewLeaves);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        list = new ArrayList<ProjectList>();
+        list = new ArrayList<LeaveList>();
 //        Toast.makeText(this, count, Toast.LENGTH_SHORT).show();
-        adapterProjects = new AdapterProjects(this,list,listener);
+        adapterLeave = new AdapterLeave(this,list,listener);
         db=FirebaseFirestore.getInstance();
-        recyclerView.setAdapter(adapterProjects);
+        recyclerView.setAdapter(adapterLeave);
 
         EventChangeListener();
 
@@ -63,7 +83,6 @@ public class LeaveRequests extends AppCompatActivity {
     private void EventChangeListener() {
 
         db.collection("Leave")
-                .orderBy("count")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -73,14 +92,13 @@ public class LeaveRequests extends AppCompatActivity {
                             Toast.makeText(LeaveRequests.this, "Snapshot error", Toast.LENGTH_SHORT).show();
                         } else {
                             for (DocumentChange dc : value.getDocumentChanges()) {
-
                                 if (progressDialog.isShowing())
                                     progressDialog.dismiss();
 
                                 if (dc.getType() == DocumentChange.Type.ADDED) {
-                                    list.add(dc.getDocument().toObject(ProjectList.class));
+                                    list.add(dc.getDocument().toObject(LeaveList.class));
                                 }
-                                adapterProjects.notifyDataSetChanged();
+                                adapterLeave.notifyDataSetChanged();
                             }
                         }
                     }
