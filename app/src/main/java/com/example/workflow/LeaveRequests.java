@@ -52,6 +52,7 @@ public class LeaveRequests extends AppCompatActivity {
                     pos=snapshot.child("Users").child(uid).child("position").getValue(String.class);
                     department=snapshot.child("Users").child(uid).child("department").getValue(String.class);
 //                    department=snapshot.child("Users").child(uid).child("department").getValue(String.class);
+                    EventChangeListener();
                 }
             }
 
@@ -77,12 +78,12 @@ public class LeaveRequests extends AppCompatActivity {
         db=FirebaseFirestore.getInstance();
         recyclerView.setAdapter(adapterLeave);
 
-        EventChangeListener();
 
     }
     private void EventChangeListener() {
 
         db.collection("Leave")
+                .whereEqualTo("department",department)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

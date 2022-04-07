@@ -4,10 +4,28 @@ public class LeaveList {
     String Type;
     String to_date,from_date,email;
 
+    public LeaveList(){}
+
     public LeaveList(String Type, String to_date, String from_date, String email) {
         this.Type = Type;
         this.to_date = to_date;
         this.from_date = from_date;
+        this.email = email;
+    }
+
+    public void setType(String type) {
+        this.Type = type;
+    }
+
+    public void setTo_date(String to_date) {
+        this.to_date = to_date;
+    }
+
+    public void setFrom_date(String from_date) {
+        this.from_date = from_date;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
     }
 

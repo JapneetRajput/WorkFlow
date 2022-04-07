@@ -55,8 +55,8 @@ public class AdapterLeave extends RecyclerView.Adapter<AdapterLeave.MyViewHolder
             super(itemView);
             type=itemView.findViewById(R.id.leavetype);
             email=itemView.findViewById(R.id.Email);
-            to_date=itemView.findViewById(R.id.fromDate);
-            from_date=itemView.findViewById(R.id.toDate);
+            to_date=itemView.findViewById(R.id.toDate);
+            from_date=itemView.findViewById(R.id.fromDate);
             itemView.setOnClickListener(this);
         }
 
