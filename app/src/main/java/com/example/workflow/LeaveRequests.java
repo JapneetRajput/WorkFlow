@@ -88,8 +88,6 @@ public class LeaveRequests extends AppCompatActivity {
         adapterLeave = new AdapterLeave(this,list,listener);
         db=FirebaseFirestore.getInstance();
         recyclerView.setAdapter(adapterLeave);
-
-
     }
     private void EventChangeListener() {
 

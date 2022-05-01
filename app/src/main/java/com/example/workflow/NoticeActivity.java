@@ -317,29 +317,29 @@ public class NoticeActivity extends AppCompatActivity {
     private void EventChangeListener() {
 
         db.collection("Notices")
-                .orderBy("count")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if(error!=null){
+            .orderBy("count")
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if(error!=null){
+                        if(progressDialog.isShowing())
+                            progressDialog.dismiss();
+                        Toast.makeText(NoticeActivity.this, "Snapshot error", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        for(DocumentChange dc : value.getDocumentChanges()){
+
                             if(progressDialog.isShowing())
                                 progressDialog.dismiss();
-                            Toast.makeText(NoticeActivity.this, "Snapshot error", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            for(DocumentChange dc : value.getDocumentChanges()){
 
-                                if(progressDialog.isShowing())
-                                    progressDialog.dismiss();
-
-                                if(dc.getType() == DocumentChange.Type.ADDED){
-                                    list.add(dc.getDocument().toObject(NoticeList.class));
-                                }
-                                adapterNotices.notifyDataSetChanged();
+                            if(dc.getType() == DocumentChange.Type.ADDED){
+                                list.add(dc.getDocument().toObject(NoticeList.class));
                             }
+                            adapterNotices.notifyDataSetChanged();
                         }
                     }
-                });
+                }
+            });
     }
 
     @Override
