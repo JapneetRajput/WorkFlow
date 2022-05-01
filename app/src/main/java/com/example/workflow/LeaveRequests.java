@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -37,12 +39,14 @@ import java.util.Map;
 import java.util.Objects;
 
 public class LeaveRequests extends AppCompatActivity {
+
     String pos,department;
     RecyclerView recyclerView;
     AdapterLeave.RecyclerViewClickListener listener;
     AdapterLeave adapterLeave;
     ArrayList<LeaveList> list;
     FirebaseFirestore db;
+    Integer count;
     String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
     ProgressDialog progressDialog;
     DatabaseReference noticeCounT= FirebaseDatabase.getInstance().getReference();
@@ -88,31 +92,6 @@ public class LeaveRequests extends AppCompatActivity {
         adapterLeave = new AdapterLeave(this,list,listener);
         db=FirebaseFirestore.getInstance();
         recyclerView.setAdapter(adapterLeave);
-    }
-    private void EventChangeListener() {
-
-        db.collection("Leave")
-                .whereEqualTo("department",department)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (error != null) {
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
-                            Toast.makeText(LeaveRequests.this, "Snapshot error", Toast.LENGTH_SHORT).show();
-                        } else {
-                            for (DocumentChange dc : value.getDocumentChanges()) {
-                                if (progressDialog.isShowing())
-                                    progressDialog.dismiss();
-
-                                if (dc.getType() == DocumentChange.Type.ADDED) {
-                                    list.add(dc.getDocument().toObject(LeaveList.class));
-                                }
-                                adapterLeave.notifyDataSetChanged();
-                            }
-                        }
-                    }
-                });
     }
     private void setOnClickListener() {
         listener=new AdapterLeave.RecyclerViewClickListener() {
@@ -163,24 +142,68 @@ public class LeaveRequests extends AppCompatActivity {
 //                });
 //                String Position = (position+1) + "";
 //                Toast.makeText(LeaveRequests.this, Position, Toast.LENGTH_SHORT).show();
+                count = list.get(position).getCount();
+                String Position = (count) + "";
                 new AlertDialog.Builder(LeaveRequests.this)
                         .setMessage("Do you wish to approve this request?")
                         .setCancelable(true)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                db.collection("Leave").document(Position)
+                                        .update("approved", 1);
                                 Toast.makeText(getApplicationContext(), "Leave Approved!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(LeaveRequests.this, LeaveRequests.class));
+                                finish();
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                db.collection("Leave").document(Position)
+                                        .update("approved", -1);
                                 Toast.makeText(getApplicationContext(), "Leave Denied!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(LeaveRequests.this, LeaveRequests.class));
+                                finish();
                             }
                         })
                         .show();
             }
         };
     }
+    private void EventChangeListener() {
+
+        db.collection("Leave")
+                .whereEqualTo("department",department)
+                .whereEqualTo("approved",0)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
+                            Toast.makeText(LeaveRequests.this, "Snapshot error", Toast.LENGTH_SHORT).show();
+                        } else {
+                            for (DocumentChange dc : value.getDocumentChanges()) {
+                                if (progressDialog.isShowing())
+                                    progressDialog.dismiss();
+
+                                if (dc.getType() == DocumentChange.Type.ADDED) {
+                                    list.add(dc.getDocument().toObject(LeaveList.class));
+                                }
+                                adapterLeave.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
+    }
+
 
 }
+
+//db.collection("users")
+//        .document("frank")
+//        .update({
+//        "age": 13,
+//        "favorites.color": "Red"
+//        });
