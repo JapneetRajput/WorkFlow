@@ -55,8 +55,14 @@
                 android:layout_marginTop="7dp"
                 android:text=""
                 android:textSize="20sp"/>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_star" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

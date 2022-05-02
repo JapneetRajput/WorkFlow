@@ -20,6 +20,10 @@ public class NoticeList {
         this.department=department;
     }
 
+    public void changeText1(String text){
+
+    }
+
     public String getTitle() {
         return title;
     }

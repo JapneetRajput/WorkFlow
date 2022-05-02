@@ -135,7 +135,7 @@ public class MyProjects extends AppCompatActivity {
                                         Projects.put("department", uidDepartment);
 
                                         if (uidProject.equals(uid)){
-                                            db.collection("Projects").document(Position).set(Projects).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            db.collection("Projects").document(Position).update(Projects).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {

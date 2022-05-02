@@ -1,5 +1,7 @@
 package com.example.workflow;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -14,10 +16,23 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class Attendance extends AppCompatActivity {
@@ -25,6 +40,10 @@ public class Attendance extends AppCompatActivity {
     String logoutTime;
     TextView difference;
     int hrDiff,minDiff,secDiff;
+//    FirebaseFirestore db;
+//    String absentCount="0",presentCount="0",halfDayCount="0";
+//    int AbsentCount=0,PresentCount=0,HalfDayCount=0;
+//    String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
     String initialYear,finalYear,initialMonth,finalMonth,initialDay,finalDay,initialHour,finalHour,initialMinutes,finalMinutes,initialSeconds,finalSeconds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +53,14 @@ public class Attendance extends AppCompatActivity {
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         String officeSSID=wifiInfo.getSSID();
-        String officeIP="172.20.10.11";
+        String officeIP=""+Formatter.formatIpAddress(wifiManager.getConnectionInfo().getIpAddress());
         String employeeSSID = wifiInfo.getSSID();
         String employeeIP =""+Formatter.formatIpAddress(wifiManager.getConnectionInfo().getIpAddress());
 
-        Button login = (Button) findViewById(R.id.login);
-        Button logout = (Button) findViewById(R.id.logout);
+        Button login = findViewById(R.id.login);
+        Button logout = findViewById(R.id.logout);
         difference= findViewById(R.id.difference);
-
+//        db=FirebaseFirestore.getInstance();
 //        TextView check = (TextView) findViewById(R.id.textView3);
 //        check.setText(officeSSID+" "+officeIP+" "+employeeSSID+" "+employeeIP);
 
@@ -49,6 +68,24 @@ public class Attendance extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (employeeSSID.equals(officeSSID) && employeeIP.equals(officeIP)){
+//                    db.collection("Users").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                        @Override
+//                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                            if(documentSnapshot!=null) {
+//                                absentCount = documentSnapshot.getString("absentCount");
+//                                AbsentCount = Integer.parseInt(absentCount);
+//                                presentCount = documentSnapshot.getString("presentCount");
+//                                PresentCount = Integer.parseInt(presentCount);
+//                                halfDayCount = documentSnapshot.getString("halfDayCount");
+//                                HalfDayCount = Integer.parseInt(halfDayCount);
+//                            }
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(Attendance.this, "Hi", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                     loginTime= new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss").format(new Date());
                     TextView time = (TextView) findViewById(R.id.logintime);
 //                    time.setText("Login Time: "+loginTime);
@@ -58,7 +95,7 @@ public class Attendance extends AppCompatActivity {
                     initialHour=loginTime.substring(14,16);
                     initialMinutes=loginTime.substring(17,19);
                     initialSeconds=loginTime.substring(20,22);
-                    time.setText("Login Time: "+initialYear+"."+initialMonth+"."+initialDay+". at "+initialHour+":"+initialMinutes+":"+initialSeconds);
+                    time.setText("Login Time: "+initialYear+"."+initialMonth+"."+initialDay+" at "+initialHour+":"+initialMinutes+":"+initialSeconds);
                     logout.setVisibility(View.VISIBLE);
                     login.setVisibility(View.INVISIBLE);
                 }
@@ -95,21 +132,52 @@ public class Attendance extends AppCompatActivity {
                     secDiff = -Integer.parseInt(initialSeconds) + Integer.parseInt(finalSeconds);
 //                    }
                     if(initialYear.equals(finalYear) || initialMonth.equals(finalMonth) || initialDay.equals(finalDay)){
-                        if(hrDiff>16){
+                        difference.setText(hrDiff+":"+minDiff+":"+secDiff);
+                        if(hrDiff<4){
+//                            AbsentCount++;
+                            Toast.makeText(Attendance.this, "Attendance not marked!", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(hrDiff>4&&hrDiff<8){
+//                            HalfDayCount++;
+                            Toast.makeText(Attendance.this, "Attendance partially marked!", Toast.LENGTH_SHORT).show();
+
+                        }
+                        else if(hrDiff>16){
+//                            AbsentCount++;
                             Toast.makeText(Attendance.this, "Attendance not marked!", Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            difference.setText(hrDiff+":"+minDiff+":"+secDiff);
+//                            PresentCount++;
                             Toast.makeText(Attendance.this, "Attendance marked!", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else{
+//                        AbsentCount++;
                         Toast.makeText(Attendance.this, "Attendance not marked!", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
                     Toast.makeText(Attendance.this, "Please check your Network and try again. ", Toast.LENGTH_SHORT).show();
                 }
+//                Map<String, Object> attt = new HashMap<>();
+//                absentCount=AbsentCount+"";
+//                presentCount=PresentCount+"";
+//                halfDayCount=HalfDayCount+"";
+//                attt.put("absentCount",absentCount);
+//                attt.put("presentCount",presentCount);
+//                attt.put("halfDayCount",halfDayCount);
+//                db.collection("Users").document(uid).set(attt).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()) {
+//                            Toast.makeText(Attendance.this, "Updated successfully", Toast.LENGTH_SHORT).show();
+//                            startActivity(new Intent(Attendance.this, Attendance.class));
+//                            finish();
+//                        } else {
+//                            Toast.makeText(Attendance.this, "Update failed", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
             }
         });
     }

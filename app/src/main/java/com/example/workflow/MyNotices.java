@@ -90,6 +90,12 @@ public class MyNotices extends AppCompatActivity {
         db=FirebaseFirestore.getInstance();
 
         recyclerView.setAdapter(adapterNotices);
+        adapterNotices.setOnItemClickListener(new AdapterNotices.onItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        });
 
         EventChangeListener();
     }
@@ -135,7 +141,7 @@ public class MyNotices extends AppCompatActivity {
                                     notices.put("department", uidDepartment);
 
                                     if (uidNotice.equals(uid)){
-                                        db.collection("Notices").document(Position).set(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        db.collection("Notices").document(Position).update(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
@@ -176,7 +182,7 @@ public class MyNotices extends AppCompatActivity {
     private void EventChangeListener() {
 
         db.collection("Notices")
-                .whereEqualTo("department","Full Stack Developer")
+            .whereEqualTo("department","Full Stack Developer")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
