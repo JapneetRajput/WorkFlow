@@ -185,9 +185,10 @@ public class LeaveActivity extends AppCompatActivity {
                 leave.put("Type", l_type);
                 leave.put("description", des);
                 leave.put("department", dept);
+                leave.put("approved",0);
                 count++;
+                leave.put("count",count);
                 String Count = count.toString();
-
                 Map<String, Object> LCount = new HashMap<>();
                 LCount.put("LeaveCount", count);
                 db1.updateChildren(LCount);
